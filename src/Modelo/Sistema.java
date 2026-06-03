@@ -40,6 +40,22 @@ public class Sistema {
 		return lstFestivales;
 	}
 
+	public Festival traerFestival(int idFestival) {
+		int i = 0;
+		Festival encontrado = null;
+
+		while (i < lstFestivales.size() && encontrado == null) {
+
+			Festival f = lstFestivales.get(i);
+
+			if (f.getIdFestival() == (idFestival)) {
+				encontrado = f;
+			}
+			i++;
+		}
+		return encontrado;
+	}
+
 	public UnidadesDeVenta traerUnidad(String codigo) {
 
 		int i = 0;
