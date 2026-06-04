@@ -40,22 +40,6 @@ public class Sistema {
 		return lstFestivales;
 	}
 
-	public Festival traerFestival(int idFestival) {
-		int i = 0;
-		Festival encontrado = null;
-
-		while (i < lstFestivales.size() && encontrado == null) {
-
-			Festival f = lstFestivales.get(i);
-
-			if (f.getIdFestival() == (idFestival)) {
-				encontrado = f;
-			}
-			i++;
-		}
-		return encontrado;
-	}
-
 	public UnidadesDeVenta traerUnidad(String codigo) {
 
 		int i = 0;
@@ -154,7 +138,7 @@ public class Sistema {
 	
 	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, String patente, boolean usaElectricidad)throws Exception{
 		
-		if(traerUnidad(codigo)==codigo){
+		if(traerUnidad(codigo) != null){
 			throw new Exception("ERROR: ya existe la unidad");
 		}
 		
