@@ -40,6 +40,7 @@ public class Sistema {
 		return lstFestivales;
 	}
 
+	/*CU1*/
 	public UnidadesDeVenta traerUnidad(String codigo) {
 
 		int i = 0;
@@ -150,6 +151,24 @@ public class Sistema {
         UnidadesDeVenta agregar = new FoodTrack(id, nombreComercial, responsable, superficie, codigo, lstPlatos, lstEmpleados, patente, usaElectricidad);
         return lstUnidadesDeVenta.add(agregar);
 	}
+	
+	/* CU9 */
+
+    public Empleado traerEmpleado(String dni) {
+
+        int i = 0;
+        Empleado encontrado = null;
+
+        while (i < lstEmpleados.size() && encontrado == null) {
+
+            Empleado e = lstEmpleados.get(i);
+
+            if (e.getDni().equalsIgnoreCase(dni)) {
+                encontrado = e;
+            }
+        }
+        return encontrado;
+    }
 	
 	
 }
