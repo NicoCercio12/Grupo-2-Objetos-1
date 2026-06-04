@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import paquete.Habitacion;
+
 public class Sistema {
 	// Atributos
 	private List<Festival> lstFestivales;
@@ -169,7 +171,25 @@ public class Sistema {
         }
         return encontrado;
     }
-	
+    
+    /* CU13 */
+    public boolean agregarPlato(String nombre, double costoProduccion,double costoVenta) {
+    	
+    	boolean agregado = false;
+    	
+    	if(traerPlato(nombre) == null) {
+    		int id = 1;
+    		
+    		if (!lstPlatos.isEmpty()) {
+    			id = lstPlatos.get(lstPlatos.size() - 1).getIdPlato() + 1;
+    		}
+    		agregado = lstPlatos.add(new Plato(id,nombre,costoProduccion,costoVenta));
+    	}
+    	
+    }
+    
+    /* CU13-Tr */
+
 	
 }
 	
