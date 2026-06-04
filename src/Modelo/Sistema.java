@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import paquete.Habitacion;
+
 public class Sistema {
 	// Atributos
 	private List<Festival> lstFestivales;
@@ -169,7 +171,41 @@ public class Sistema {
         }
         return encontrado;
     }
+    
+    /* CU13-A */
+    
+    public Plato traerPlato(String nombre) {
 
+        int i = 0;
+        Plato encontrado = null;
+
+        while (i < lstPlatos.size() && encontrado == null) {
+
+            Plato p = lstPlatos.get(i);
+
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                encontrado = p;
+            }
+        }
+        return encontrado;
+    }
+    /* CU13-B */
+	public boolean agregarPlato(String nombre, double costoProduccion, double costoVenta) {
+
+		boolean agregado = false;
+
+		if (traerPlato(nombre) == null) {
+			int id = 1;
+
+			if (!lstPlatos.isEmpty()) {
+				id = lstPlatos.get(lstPlatos.size() - 1).getIdPlato() + 1;
+			}
+			agregado = lstPlatos.add(new Plato(id,nombre,costoProduccion,costoVenta));
+		}
+		return agregado;
+	}
+    
+    
 	public List<ReporteVenta> traerReporteRecaudacion(String nombre) {
 
 		List<ReporteVenta> reporteRecaudacion = new ArrayList<ReporteVenta>();
