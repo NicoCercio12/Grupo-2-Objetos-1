@@ -40,6 +40,22 @@ public class Sistema {
 		return lstFestivales;
 	}
 
+	public Festival traerFestival(int idFestival) {
+		int i = 0;
+		Festival encontrado = null;
+
+		while (i < lstFestivales.size() && encontrado == null) {
+
+			Festival f = lstFestivales.get(i);
+
+			if (f.getIdFestival() == (idFestival)) {
+				encontrado = f;
+			}
+			i++;
+		}
+		return encontrado;
+	}
+
 	public UnidadesDeVenta traerUnidad(String codigo) {
 
 		int i = 0;
@@ -87,6 +103,22 @@ public class Sistema {
 
 		return lstUnidadesDeVenta.remove(unidadEliminar);
 
+	}
+	
+	public Festival traerFestival(String nombre) {
+		int i = 0;
+		Festival encontrado = null;
+
+		while (i < lstFestivales.size() && encontrado == null) {
+
+			Festival f = lstFestivales.get(i);
+
+			if (f.getNombre().equals(nombre)) {
+				encontrado = f;
+			}
+			i++;
+		}
+		return encontrado;
 	}
 
 	public boolean agregarFestival(String nombre, String temporada, String tematica, LocalDate fechaInicio, LocalDate fechaFin)throws Exception{
