@@ -89,6 +89,37 @@ public class Sistema {
 
 	}
 
+	public boolean agregarFestival(String nombre, String temporada, String tematica, LocalDate fechaInicio, LocalDate fechaFin)throws Exception{
+		
+		int id=1;
+        if(!lstFestivales.isEmpty()) {
+            id=lstFestivales.get(lstFestivales.size()-1).getIdFestival()+1;
+        }
+        
+		if(traerFestival(nombre)!=null) {
+	        throw new Exception("ERROR: el festival ya existe");
+	    }
+
+        Festival agregar= new Festival(id, nombre, temporada, tematica, fechaInicio, fechaFin);
+        return lstFestivales.add(agregar);
+    }
+	
+	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, String patente, boolean usaElectricidad)throws Exception{
+		
+		if(traerUnidad(codigo)==codigo){
+			throw new Exception("ERROR: ya existe la unidad");
+		}
+		
+		int id=1;
+        if(!lstUnidadesDeVenta.isEmpty()) {
+            id=lstUnidadesDeVenta.get(lstUnidadesDeVenta.size()-1).getIdUnidad()+1;
+        }
+		
+        UnidadesDeVenta agregar = new FoodTrack(id, nombreComercial, responsable, superficie, codigo, lstPlatos, lstEmpleados, patente, usaElectricidad);
+        return lstUnidadesDeVenta.add(agregar);
+	}
+	
+	
 }
 	
 

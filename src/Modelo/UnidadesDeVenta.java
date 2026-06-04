@@ -3,7 +3,7 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnidadesDeVenta {
+public abstract class UnidadesDeVenta {
 	//Atributos
 	private int idUnidad;
 	private String nombreComercial;
