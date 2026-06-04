@@ -104,22 +104,38 @@ public class Sistema {
 		return lstUnidadesDeVenta.remove(unidadEliminar);
 
 	}
-	
+
 	public Festival traerFestival(String nombre) {
-		int i = 0;
-		Festival encontrado = null;
+        int i = 0;
+        Festival encontrado = null;
 
-		while (i < lstFestivales.size() && encontrado == null) {
+        while (i < lstFestivales.size() && encontrado == null) {
 
-			Festival f = lstFestivales.get(i);
+            Festival f = lstFestivales.get(i);
 
-			if (f.getNombre().equals(nombre)) {
-				encontrado = f;
-			}
-			i++;
-		}
-		return encontrado;
-	}
+            if (f.getNombre().equalsIgnoreCase(nombre)) {
+                encontrado = f;
+            }
+            i++;
+        }
+        return encontrado;
+    }
+
+    public UnidadesDeVenta traerUnidadDeVenta(int idUnidad) {
+        int i = 0;
+        UnidadesDeVenta encontrada = null;
+
+        while(i < lstUnidadesDeVenta.size() && encontrada == null) {
+
+            UnidadesDeVenta u = lstUnidadesDeVenta.get(i);
+
+            if (u.getIdUnidad() == idUnidad) {
+                encontrada = u;
+            }
+            i++;
+        }
+        return encontrada;
+    }
 
 	public boolean agregarFestival(String nombre, String temporada, String tematica, LocalDate fechaInicio, LocalDate fechaFin)throws Exception{
 		
