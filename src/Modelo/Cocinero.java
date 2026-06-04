@@ -1,13 +1,16 @@
 package Modelo;
 
-public class Cocinero {
+import java.time.LocalDate;
+
+public class Cocinero extends Empleado{
 	//Atributos
 	private String especialidad;
 	private double plusCategoria;
 	private double sueldoBase;
 		//Constructor
-	public Cocinero(String especialidad, double plusCategoria, double sueldoBase) {
-		super();
+	public Cocinero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+			LocalDate antiguedad, String especialidad, double plusCategoria, double sueldoBase) {
+		super(idEmpleado, nombre, apellido,dni, fechaNacimiento, antiguedad);
 		this.especialidad = especialidad;
 		this.plusCategoria = plusCategoria;
 		this.sueldoBase = sueldoBase;
@@ -16,6 +19,7 @@ public class Cocinero {
 	public String getEspecialidad() {
 		return especialidad;
 	}
+	
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}

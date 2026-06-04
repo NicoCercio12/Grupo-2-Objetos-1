@@ -124,21 +124,21 @@ public class Sistema {
     }
 
 	public boolean agregarFestival(String nombre, String temporada, String tematica, LocalDate fechaInicio, LocalDate fechaFin)throws Exception{
-		
-		int id=1;
-        if(!lstFestivales.isEmpty()) {
-            id=lstFestivales.get(lstFestivales.size()-1).getIdFestival()+1;
-        }
         
 		if(traerFestival(nombre)!=null) {
 	        throw new Exception("ERROR: el festival ya existe");
 	    }
 
+		int id=1;
+        if(!lstFestivales.isEmpty()) {
+            id=lstFestivales.get(lstFestivales.size()-1).getIdFestival()+1;
+        }
+		
         Festival agregar= new Festival(id, nombre, temporada, tematica, fechaInicio, fechaFin);
         return lstFestivales.add(agregar);
     }
 	
-	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, String patente, boolean usaElectricidad)throws Exception{
+	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, List<Plato> plato, List<Empleado> empleado, String patente, boolean usaElectricidad)throws Exception{
 		
 		if(traerUnidad(codigo) != null){
 			throw new Exception("ERROR: ya existe la unidad");
@@ -149,7 +149,7 @@ public class Sistema {
             id=lstUnidadesDeVenta.get(lstUnidadesDeVenta.size()-1).getIdUnidad()+1;
         }
 		
-        UnidadesDeVenta agregar = new FoodTrack(id, nombreComercial, responsable, superficie, codigo, lstPlatos, lstEmpleados, patente, usaElectricidad);
+        UnidadesDeVenta agregar = new FoodTrack(id, nombreComercial, responsable, superficie, codigo, plato, empleado, patente, usaElectricidad);
         return lstUnidadesDeVenta.add(agregar);
 	}
 	
@@ -170,6 +170,22 @@ public class Sistema {
         }
         return encontrado;
     }
+    
+	public boolean agregarCocinero(String nombre,String apellido,String dni, LocalDate fechaNacimiento,LocalDate fechaIngreso, String especialidad, double plusCategoria, double sueldoBase)throws Exception{
+		
+		if(traerEmpleado(dni)!=null){
+			throw new Exception("ERROR: ya existe la unidad");
+		}
+		
+		int id=1;
+        if(!lstEmpleados.isEmpty()) {
+            id=lstEmpleados.get(lstEmpleados.size()-1).getIdEmpleado()+1;
+        }
+		
+        Empleado agregar = new Cocinero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, especialidad, plusCategoria ,sueldoBase);
+        return lstEmpleados.add(agregar);
+	}
+    
     
     /* CU13-A */
     
@@ -205,6 +221,18 @@ public class Sistema {
 	}
     
     
+	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadesDeVenta codigoUnidad){
+		
+		int id=1;
+        if(!lstPedidos.isEmpty()) {
+            id=lstPedidos.get(lstPedidos.size()-1).getIdPedido()+1;
+        }
+		
+        Pedido agregar = new Pedido(id, fecha, festival, codigoUnidad);
+        return lstPedidos.add(agregar);
+	}
+	
+	
 	public List<ReporteVenta> traerReporteRecaudacion(String nombre) {
 
 		List<ReporteVenta> reporteRecaudacion = new ArrayList<ReporteVenta>();

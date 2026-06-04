@@ -7,21 +7,21 @@ public abstract class Empleado {
 	protected int idEmpleado;
 	protected String nombre;
 	protected String apellido;
-	protected LocalDate fechaNacimiento;
 	protected String dni;
-	protected int antiguedad;
+	protected LocalDate fechaNacimiento;
+	protected LocalDate antiguedad;
 
 	
 	
 		//Constructor
-		public Empleado(int idEmpleado, String nombre, String apellido, LocalDate fechaNacimiento, String dni,
-			int antiguedad) {
+		public Empleado(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+			LocalDate antiguedad) {
 		super();
 		this.idEmpleado = idEmpleado;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fechaNacimiento = fechaNacimiento;
 		this.dni = dni;
+		this.fechaNacimiento = fechaNacimiento;
 		this.antiguedad = antiguedad;
 	}
 		public Empleado() {
@@ -58,11 +58,12 @@ public abstract class Empleado {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public int getAntiguedad() {
+	public LocalDate getAntiguedad() {
 		return antiguedad;
 	}
-	public void setAntiguedad(int antiguedad) {
+	public void setAntiguedad(LocalDate antiguedad) {
 		this.antiguedad = antiguedad;
 	}
+	
 		//Funciones
 }
