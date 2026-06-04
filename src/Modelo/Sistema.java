@@ -104,6 +104,22 @@ public class Sistema {
 		return lstUnidadesDeVenta.remove(unidadEliminar);
 
 	}
+	
+	public Festival traerFestival(String nombre) {
+		int i = 0;
+		Festival encontrado = null;
+
+		while (i < lstFestivales.size() && encontrado == null) {
+
+			Festival f = lstFestivales.get(i);
+
+			if (f.getNombre().equals(nombre)) {
+				encontrado = f;
+			}
+			i++;
+		}
+		return encontrado;
+	}
 
 }
 	
