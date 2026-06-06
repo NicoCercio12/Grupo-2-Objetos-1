@@ -139,7 +139,7 @@ public class Sistema {
 	}
 
 	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo,
-			List<Plato> plato, List<Empleado> empleado, String patente, boolean usaElectricidad) throws Exception {
+			String patente, boolean usaElectricidad) throws Exception {
 
 		if (traerUnidad(codigo) != null) {
 			throw new Exception("ERROR: ya existe la unidad");
@@ -150,9 +150,8 @@ public class Sistema {
 			id = lstUnidadesDeVenta.get(lstUnidadesDeVenta.size() - 1).getIdUnidad() + 1;
 		}
 
-		UnidadesDeVenta agregar = new FoodTrack(id, nombreComercial, responsable, superficie, codigo, plato, empleado,
-				patente, usaElectricidad);
-		return lstUnidadesDeVenta.add(agregar);
+		return lstUnidadesDeVenta.add(new FoodTruck(id, nombreComercial, responsable, superficie, codigo,
+				patente, usaElectricidad));
 	}
 
 	public boolean agregarPuestoDesarmable(String nombreComercial, Empleado responsable, double superficie,
@@ -165,7 +164,7 @@ public class Sistema {
 			id = lstUnidadesDeVenta.get(lstUnidadesDeVenta.size() - 1).getIdUnidad() + 1;
 		}
 		return lstUnidadesDeVenta.add(new PuestoDesarmable(id, nombreComercial, responsable, superficie, codigo,
-				lstPlatos, lstEmpleados, cantidadCarpas, tiempoMontaje));
+				cantidadCarpas, tiempoMontaje));
 	}
 
 	/* CU9 */
@@ -182,6 +181,8 @@ public class Sistema {
 			if (e.getDni().equalsIgnoreCase(dni)) {
 				encontrado = e;
 			}
+
+			i++;
 		}
 		return encontrado;
 	}
@@ -239,6 +240,8 @@ public class Sistema {
 			if (p.getNombre().equalsIgnoreCase(nombre)) {
 				encontrado = p;
 			}
+
+			i++;
 		}
 		return encontrado;
 	}
@@ -283,28 +286,27 @@ public class Sistema {
 	}
 
 	/* CU19 */
-    public boolean agregarPedidoValidado(LocalDate fecha, String nombre, String codigoUnidad) throws Exception{
-    	Festival festival = traerFestival(nombre);
-    	if(festival == null) {
-    		throw new Exception("El festival con id "+ nombre + " no existe");
-    	}
-    	
-    	if(fecha.isBefore(festival.getFechaInicio()) || fecha.isAfter(festival.getFechaFin())) {
-    		 throw new Exception("La fecha del pedido no corresponde al festival");
-    	}
-    	
-    	UnidadesDeVenta unidad = traerUnidadDeVenta(codigoUnidad);
-    	if(unidad == null) {
-    		 throw new Exception("La unidad de venta con código " + codigoUnidad + " no existe en el festival");
-    	}
-    	int id = 1;
-    	
+	public boolean agregarPedidoValidado(LocalDate fecha, String nombre, String codigoUnidad) throws Exception {
+		Festival festival = traerFestival(nombre);
+		if (festival == null) {
+			throw new Exception("El festival con id " + nombre + " no existe");
+		}
+
+		if (fecha.isBefore(festival.getFechaInicio()) || fecha.isAfter(festival.getFechaFin())) {
+			throw new Exception("La fecha del pedido no corresponde al festival");
+		}
+
+		UnidadesDeVenta unidad = traerUnidadDeVenta(codigoUnidad);
+		if (unidad == null) {
+			throw new Exception("La unidad de venta con código " + codigoUnidad + " no existe en el festival");
+		}
+		int id = 1;
 
 		if (!lstPedidos.isEmpty()) {
 			id = (lstPedidos.get(lstPedidos.size() - 1).getIdPedido() + 1);
 		}
 		return lstPedidos.add(new Pedido(id, fecha, festival, unidad));
-    }
+	}
 
 	public List<ReporteVenta> traerReporteRecaudacion(String nombre) {
 
@@ -330,7 +332,5 @@ public class Sistema {
 
 		return reporteRecaudacion;
 	}
-
-
 
 }

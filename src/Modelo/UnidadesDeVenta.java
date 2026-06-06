@@ -16,15 +16,15 @@ public abstract class UnidadesDeVenta {
 	// Constructor
 
 	public UnidadesDeVenta(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
-			String codigo, List<Plato> lstPlatos, List<Empleado> lstEmpleados) {
+			String codigo) {
 		super();
 		this.idUnidad = idUnidad;
 		this.nombreComercial = nombreComercial;
 		this.empleadoResponsable = empleadoResponsable;
 		this.superficie = superficie;
 		this.codigo = codigo;
-		this.lstPlatos = lstPlatos;
-		this.lstEmpleados = lstEmpleados;
+		this.lstPlatos = new ArrayList<Plato>();
+		this.lstEmpleados = new ArrayList<Empleado>();
 	}
 
 	// Getters & Setters
@@ -108,5 +108,12 @@ public abstract class UnidadesDeVenta {
 		return agregado;
 	}
 
-	// Funciones
+	@Override
+	public String toString() {
+		return "UnidadesDeVenta [idUnidad=" + idUnidad + ", nombreComercial=" + nombreComercial
+				+ ", empleadoResponsable=" + empleadoResponsable + ", superficie=" + superficie + ", codigo=" + codigo
+				+ ", lstPlatos=" + lstPlatos + ", lstEmpleados=" + lstEmpleados + "]";
+	}
+
+	
 }

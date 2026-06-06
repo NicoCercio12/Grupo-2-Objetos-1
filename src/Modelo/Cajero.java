@@ -29,14 +29,10 @@ public class Cajero extends Empleado {
 
 	@Override
 	public String toString() {
-		return "Cajero [turno=" + turno + ", idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", antiguedad=" + antiguedad
-				+ ", getTurno()=" + getTurno() + ", getIdEmpleado()=" + getIdEmpleado() + ", getNombre()=" + getNombre()
-				+ ", getApellido()=" + getApellido() + ", getFechaNacimiento()=" + getFechaNacimiento() + ", getDni()="
-				+ getDni() + ", getAntiguedad()=" + getAntiguedad() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+		return "Cajero []";
 	}
 
+	
 	
 
 }

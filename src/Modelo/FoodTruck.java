@@ -1,0 +1,34 @@
+package Modelo;
+
+public class FoodTruck extends UnidadesDeVenta {
+
+	private String patente;
+	private boolean usaElectricidad;
+
+	
+
+	public FoodTruck(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
+			String codigo, String patente, boolean usaElectricidad) {
+		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo);
+		this.patente = patente;
+		this.usaElectricidad = usaElectricidad;
+	}
+
+	// Getters & Setters
+	public String getPatente() {
+		return patente;
+	}
+
+	public void setPatente(String patente) {
+		this.patente = patente;
+	}
+
+	public boolean isUsaElectricidad() {
+		return usaElectricidad;
+	}
+
+	public void setUsaElectricidad(boolean usaElectricidad) {
+		this.usaElectricidad = usaElectricidad;
+	}
+
+}

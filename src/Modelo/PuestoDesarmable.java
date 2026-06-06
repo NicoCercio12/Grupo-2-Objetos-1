@@ -1,16 +1,13 @@
 package Modelo;
 
-import java.util.List;
-
 public class PuestoDesarmable extends UnidadesDeVenta {
 	//Atributos
 	private int cantidadCarpas;
 	private int tiempoMontajeMinutos;
-	
+
 	public PuestoDesarmable(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
-			String codigo, List<Plato> lstPlatos, List<Empleado> lstEmpleados, int cantidadCarpas,
-			int tiempoMontajeMinutos) {
-		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo, lstPlatos, lstEmpleados);
+			String codigo, int cantidadCarpas, int tiempoMontajeMinutos) {
+		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo);
 		this.cantidadCarpas = cantidadCarpas;
 		this.tiempoMontajeMinutos = tiempoMontajeMinutos;
 	}
