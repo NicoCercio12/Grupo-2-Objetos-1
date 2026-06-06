@@ -332,5 +332,23 @@ public class Sistema {
 
 		return reporteRecaudacion;
 	}
+	
+	/* CU21 */
+	public List<Empleado> traerPersonalPorFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
+
+        List<Empleado> empleados = new ArrayList<Empleado>();
+
+        for (Empleado e : lstEmpleados) {
+
+            if (!e.getFechaIngreso().isBefore(fechaDesde) && !e.getFechaIngreso().isAfter(fechaHasta)) {
+
+                empleados.add(e);
+            }
+        }
+
+        return empleados;
+    }
+	
+	
 
 }
