@@ -332,63 +332,89 @@ public class Sistema {
 
 		return reporteRecaudacion;
 	}
-	
+
 	/* CU21 */
 	public List<Empleado> traerPersonalPorFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
 
-        List<Empleado> empleados = new ArrayList<Empleado>();
+		List<Empleado> empleados = new ArrayList<Empleado>();
 
-        for (Empleado e : lstEmpleados) {
+		for (Empleado e : lstEmpleados) {
 
-            if (!e.getFechaIngreso().isBefore(fechaDesde) && !e.getFechaIngreso().isAfter(fechaHasta)) {
+			if (!e.getFechaIngreso().isBefore(fechaDesde) && !e.getFechaIngreso().isAfter(fechaHasta)) {
 
-                empleados.add(e);
-            }
-        }
+				empleados.add(e);
+			}
+		}
 
-        return empleados;
-    }
-	
+		return empleados;
+	}
+
+	public List<UnidadesDeVenta> traerRankingUnidades(String nombreFestival) {
+
+		Festival festival = traerFestival(nombreFestival);
+
+		List<ReporteVenta> reporte = traerReporteRecaudacion(festival.getNombre());
+
+		for (int i = 0; i < reporte.size() - 1; i++) {
+
+			for (int j = 0; j < reporte.size() - 1 - i; j++) {
+
+				if (reporte.get(j).getRecaudacion() < reporte.get(j + 1).getRecaudacion()) {
+					ReporteVenta aux = reporte.get(j);
+					reporte.set(j, reporte.get(j + 1));
+					reporte.set(j + 1, aux);
+				}
+			}
+		}
+
+		List<UnidadesDeVenta> ranking = new ArrayList<UnidadesDeVenta>();
+
+		for (ReporteVenta r : reporte) {
+			ranking.add(r.getUnidad());
+		}
+
+		return ranking;
+	}
+
 	/* CU25 */
 	public Plato traerPlatoEstrella(String codigo, int idFestival) {
-	    Plato platoEstrella = null;
-	    int maxCantidad = 0;
+		Plato platoEstrella = null;
+		int maxCantidad = 0;
 
-	    int i = 0;
-	    while (i < lstPlatos.size()) {
-	        Plato plato = lstPlatos.get(i);
-	        int cantidadTotal = 0;
+		int i = 0;
+		while (i < lstPlatos.size()) {
+			Plato plato = lstPlatos.get(i);
+			int cantidadTotal = 0;
 
-	        int j = 0;
-	        while (j < lstPedidos.size()) {
-	            Pedido pedido = lstPedidos.get(j);
-	            if (pedido.getFestival().getIdFestival()==(idFestival) &&
-	                pedido.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
+			int j = 0;
+			while (j < lstPedidos.size()) {
+				Pedido pedido = lstPedidos.get(j);
+				if (pedido.getFestival().getIdFestival() == (idFestival) &&
+						pedido.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
 
-	                int k = 0;
-	                while (k < pedido.getLstDetalleVentas().size()) {
-	                    DetalleVenta detalle = pedido.getLstDetalleVentas().get(k);
-	                    if (detalle.getPlato().getIdPlato() == plato.getIdPlato()) {
-	                        cantidadTotal += detalle.getCantidad();
-	                    }
-	                    k++;
-	                }
-	            }
-	            j++;
-	        }
+					int k = 0;
+					while (k < pedido.getLstDetalleVentas().size()) {
+						DetalleVenta detalle = pedido.getLstDetalleVentas().get(k);
+						if (detalle.getPlato().getIdPlato() == plato.getIdPlato()) {
+							cantidadTotal += detalle.getCantidad();
+						}
+						k++;
+					}
+				}
+				j++;
+			}
 
-	        if (cantidadTotal > maxCantidad) {
-	            maxCantidad = cantidadTotal;
-	            platoEstrella = plato;
-	        }
-	        i++;
-	    }
+			if (cantidadTotal > maxCantidad) {
+				maxCantidad = cantidadTotal;
+				platoEstrella = plato;
+			}
+			i++;
+		}
 
-	    return platoEstrella;
+		return platoEstrella;
 	}
-	
+
 	/* CU29 */
 	/* CU33 */
-	
 
 }
