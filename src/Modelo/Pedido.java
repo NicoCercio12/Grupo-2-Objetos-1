@@ -60,8 +60,8 @@ public class Pedido {
 		return lstDetalleVentas;
 	}
 
-	public boolean agregarDetalle(DetalleVenta detalle) {
-		return lstDetalleVentas.add(detalle);
+	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
+		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
 	}
 
 	// Funciones
