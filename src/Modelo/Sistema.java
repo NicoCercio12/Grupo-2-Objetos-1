@@ -349,6 +349,46 @@ public class Sistema {
         return empleados;
     }
 	
+	/* CU25 */
+	public Plato traerPlatoEstrella(String codigo, int idFestival) {
+	    Plato platoEstrella = null;
+	    int maxCantidad = 0;
+
+	    int i = 0;
+	    while (i < lstPlatos.size()) {
+	        Plato plato = lstPlatos.get(i);
+	        int cantidadTotal = 0;
+
+	        int j = 0;
+	        while (j < lstPedidos.size()) {
+	            Pedido pedido = lstPedidos.get(j);
+	            if (pedido.getFestival().getIdFestival()==(idFestival) &&
+	                pedido.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
+
+	                int k = 0;
+	                while (k < pedido.getLstDetalleVentas().size()) {
+	                    DetalleVenta detalle = pedido.getLstDetalleVentas().get(k);
+	                    if (detalle.getPlato().getIdPlato() == plato.getIdPlato()) {
+	                        cantidadTotal += detalle.getCantidad();
+	                    }
+	                    k++;
+	                }
+	            }
+	            j++;
+	        }
+
+	        if (cantidadTotal > maxCantidad) {
+	            maxCantidad = cantidadTotal;
+	            platoEstrella = plato;
+	        }
+	        i++;
+	    }
+
+	    return platoEstrella;
+	}
+	
+	/* CU29 */
+	/* CU33 */
 	
 
 }
