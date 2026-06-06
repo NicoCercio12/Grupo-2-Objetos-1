@@ -1,32 +1,42 @@
 package Modelo;
 
-public class Cajero {
+import java.time.LocalDate;
 
+public class Cajero extends Empleado {
 	
-	//Atributos
 	private String turno;
-	private double sueldoBase;
-		//Constructor
-	public Cajero(String turno, double sueldoBase) {
-		super();
+
+	public Cajero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+			LocalDate antiguedad, String turno) {
+		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, antiguedad);
 		this.turno = turno;
-		this.sueldoBase = sueldoBase;
 	}
-	// Getters & Setters
+
+	public Cajero(String turno) {
+		this.turno = turno;
+	}
+
+	public Cajero() {
+	}
+
 	public String getTurno() {
 		return turno;
 	}
+
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	public double getSueldoBase() {
-		return sueldoBase;
-	}
-	public void setSueldoBase(double sueldoBase) {
-		this.sueldoBase = sueldoBase;
-	}
-		
 
-		
-		//Funciones
+	@Override
+	public String toString() {
+		return "Cajero [turno=" + turno + ", idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", antiguedad=" + antiguedad
+				+ ", getTurno()=" + getTurno() + ", getIdEmpleado()=" + getIdEmpleado() + ", getNombre()=" + getNombre()
+				+ ", getApellido()=" + getApellido() + ", getFechaNacimiento()=" + getFechaNacimiento() + ", getDni()="
+				+ getDni() + ", getAntiguedad()=" + getAntiguedad() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
+	
+
 }

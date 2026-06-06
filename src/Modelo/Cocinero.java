@@ -36,5 +36,4 @@ public class Cocinero extends Empleado{
 		this.sueldoBase = sueldoBase;
 	}
 	
-		//Funciones
 }
