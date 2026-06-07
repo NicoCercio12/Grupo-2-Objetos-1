@@ -349,6 +349,27 @@ public class Sistema {
 		return empleados;
 	}
 
+	public double calcularRentabilidadNeta(String codigo, LocalDate fechaDesde, LocalDate fechaHasta) {
+
+		double ingresosTotales = 0.0;
+		double costosTotales = 0.0;
+
+		for (Pedido p : lstPedidos) {
+
+			if (p.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo) &&
+					!p.getFecha().isBefore(fechaDesde) && !p.getFecha().isAfter(fechaHasta)) {
+
+				for (DetalleVenta d : p.getLstDetalleVentas()) {
+
+					ingresosTotales += d.getPlato().getCostoVenta() * d.getCantidad();
+					costosTotales += d.getPlato().getCostoProduccion() * d.getCantidad();
+				}
+			}
+		}
+
+		return ingresosTotales - costosTotales;
+	}
+
 	public List<UnidadesDeVenta> traerRankingUnidades(String nombreFestival) {
 
 		Festival festival = traerFestival(nombreFestival);
@@ -414,7 +435,7 @@ public class Sistema {
 		return platoEstrella;
 	}
 
-    /* CU29 se encuentra dentro de la clase UnidadesDeVenta*/
-    /* CU33 se encuentra dentro de la clase UnidadesDeVenta*/
+	/* CU29 se encuentra dentro de la clase UnidadesDeVenta */
+	/* CU33 se encuentra dentro de la clase UnidadesDeVenta */
 
 }

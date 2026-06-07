@@ -65,18 +65,30 @@ public class Pedido {
 	}
 
 	// Funciones
-	/*CU 33*/
+	/* CU 33 */
 	public DetalleVenta traerDetalleVenta(int idPedido) {
-	        DetalleVenta detalleEncontrado = null;
-	        int i = 0;
-	        while (i < lstDetalleVentas.size()) {
-	            DetalleVenta detalle = lstDetalleVentas.get(i);
-	            if (getIdPedido() == idPedido) {
-	                detalleEncontrado = detalle;
-	            }
-	            i++;
-	        }
-	        return detalleEncontrado;
-	    } 
+		DetalleVenta detalleEncontrado = null;
+		int i = 0;
+		while (i < lstDetalleVentas.size()) {
+			DetalleVenta detalle = lstDetalleVentas.get(i);
+			if (getIdPedido() == idPedido) {
+				detalleEncontrado = detalle;
+			}
+			i++;
+		}
+		return detalleEncontrado;
+	}
+
+	public boolean agregarUnidad(UnidadesDeVenta unidad) {
+
+		boolean agregado = false;
+
+		if (unidad != null) {
+			this.unidadDeVenta = unidad;
+			agregado = true;
+		}
+
+		return agregado;
+	}
 
 }
