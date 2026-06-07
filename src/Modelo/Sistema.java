@@ -414,7 +414,7 @@ public class Sistema {
 		return platoEstrella;
 	}
 
-	/* CU29 */
-	/* CU33 */
+    /* CU29 se encuentra dentro de la clase UnidadesDeVenta*/
+    /* CU33 se encuentra dentro de la clase UnidadesDeVenta*/
 
 }

@@ -65,4 +65,18 @@ public class Pedido {
 	}
 
 	// Funciones
+	/*CU 33*/
+	public DetalleVenta traerDetalleVenta(int idPedido) {
+	        DetalleVenta detalleEncontrado = null;
+	        int i = 0;
+	        while (i < lstDetalleVentas.size()) {
+	            DetalleVenta detalle = lstDetalleVentas.get(i);
+	            if (getIdPedido() == idPedido) {
+	                detalleEncontrado = detalle;
+	            }
+	            i++;
+	        }
+	        return detalleEncontrado;
+	    } 
+
 }

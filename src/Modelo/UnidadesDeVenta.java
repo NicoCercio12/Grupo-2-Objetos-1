@@ -107,6 +107,16 @@ public abstract class UnidadesDeVenta {
 
 		return agregado;
 	}
+	
+	/* CU29 */
+    public boolean agregarEmpleado(Empleado empleado) {
+        boolean resultado = false;
+        if (empleado != null && !lstEmpleados.contains(empleado)) {
+            lstEmpleados.add(empleado);
+            resultado = true;
+        }
+        return resultado;
+    }
 
 	@Override
 	public String toString() {
