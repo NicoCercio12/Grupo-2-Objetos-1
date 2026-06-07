@@ -1,7 +1,7 @@
 package Modelo;
 
-public class PuestoDesarmable extends UnidadesDeVenta {
-	//Atributos
+public class PuestoDesarmable extends UnidadDeVenta {
+
 	private int cantidadCarpas;
 	private int tiempoMontajeMinutos;
 
@@ -31,17 +31,9 @@ public class PuestoDesarmable extends UnidadesDeVenta {
 	@Override
 	public String toString() {
 		return "PuestoDesarmable [cantidadCarpas=" + cantidadCarpas + ", tiempoMontajeMinutos=" + tiempoMontajeMinutos
-				+ ", getCantidadCarpas()=" + getCantidadCarpas() + ", getTiempoMontajeMinutos()="
-				+ getTiempoMontajeMinutos() + ", getIdUnidad()=" + getIdUnidad() + ", getNombreComercial()="
-				+ getNombreComercial() + ", getEmpleadoResponsable()=" + getEmpleadoResponsable() + ", getSuperficie()="
-				+ getSuperficie() + ", getCodigo()=" + getCodigo() + ", getLstPlatos()=" + getLstPlatos()
-				+ ", getLstEmpleados()=" + getLstEmpleados() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ "]";
 	}
 
 	
-	
-	
-	
-		
+
 }

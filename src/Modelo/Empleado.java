@@ -25,7 +25,6 @@ public abstract class Empleado {
 	public Empleado() {
 	}
 
-	// Getters & Setters
 	public int getIdEmpleado() {
 		return idEmpleado;
 	}

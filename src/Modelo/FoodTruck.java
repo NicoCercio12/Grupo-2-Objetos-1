@@ -1,11 +1,9 @@
 package Modelo;
 
-public class FoodTruck extends UnidadesDeVenta {
+public class FoodTruck extends UnidadDeVenta {
 
 	private String patente;
 	private boolean usaElectricidad;
-
-	
 
 	public FoodTruck(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
 			String codigo, String patente, boolean usaElectricidad) {
@@ -29,6 +27,11 @@ public class FoodTruck extends UnidadesDeVenta {
 
 	public void setUsaElectricidad(boolean usaElectricidad) {
 		this.usaElectricidad = usaElectricidad;
+	}
+
+	@Override
+	public String toString() {
+		return "FoodTruck [patente=" + patente + ", usaElectricidad=" + usaElectricidad + "]";
 	}
 
 }

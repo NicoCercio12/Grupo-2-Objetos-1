@@ -3,20 +3,13 @@ package Modelo;
 import java.time.LocalDate;
 
 public class Cajero extends Empleado {
-	
+
 	private String turno;
 
 	public Cajero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate antiguedad, String turno) {
-		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, antiguedad);
+			LocalDate fechaIngreso, String turno) {
+		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, fechaIngreso);
 		this.turno = turno;
-	}
-
-	public Cajero(String turno) {
-		this.turno = turno;
-	}
-
-	public Cajero() {
 	}
 
 	public String getTurno() {
@@ -29,10 +22,8 @@ public class Cajero extends Empleado {
 
 	@Override
 	public String toString() {
-		return "Cajero []";
+		return "Cajero [idEmpleado=" + idEmpleado + ", turno=" + turno + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
-
-	
-	
 
 }

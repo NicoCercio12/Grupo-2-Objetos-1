@@ -9,11 +9,11 @@ public class Pedido {
 	private int idPedido;
 	private LocalDate fecha;
 	private Festival festival;
-	private UnidadesDeVenta unidadDeVenta;
+	private UnidadDeVenta unidadDeVenta;
 	private List<DetalleVenta> lstDetalleVentas;
 
 	// Constructor
-	public Pedido(int idPedido, LocalDate fecha, Festival festival, UnidadesDeVenta unidadDeVenta) {
+	public Pedido(int idPedido, LocalDate fecha, Festival festival, UnidadDeVenta unidadDeVenta) {
 		super();
 		this.idPedido = idPedido;
 		this.fecha = fecha;
@@ -48,11 +48,11 @@ public class Pedido {
 		this.festival = festival;
 	}
 
-	public UnidadesDeVenta getUnidadDeVenta() {
+	public UnidadDeVenta getUnidadDeVenta() {
 		return unidadDeVenta;
 	}
 
-	public void setUnidadDeVenta(UnidadesDeVenta unidadDeVenta) {
+	public void setUnidadDeVenta(UnidadDeVenta unidadDeVenta) {
 		this.unidadDeVenta = unidadDeVenta;
 	}
 
@@ -79,7 +79,7 @@ public class Pedido {
 		return detalleEncontrado;
 	}
 
-	public boolean agregarUnidad(UnidadesDeVenta unidad) {
+	public boolean agregarUnidad(UnidadDeVenta unidad) {
 
 		boolean agregado = false;
 
@@ -90,5 +90,13 @@ public class Pedido {
 
 		return agregado;
 	}
+
+	@Override
+	public String toString() {
+		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", festival=" + festival + ", unidadDeVenta="
+				+ unidadDeVenta + ", lstDetalleVentas=" + lstDetalleVentas + "]";
+	}
+
+	
 
 }

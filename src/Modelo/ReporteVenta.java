@@ -2,19 +2,19 @@ package Modelo;
 
 public class ReporteVenta {
 
-    private UnidadesDeVenta unidad;
+    private UnidadDeVenta unidad;
     private double recaudacion;
     
-    public ReporteVenta(UnidadesDeVenta unidad, double recaudacion) {
+    public ReporteVenta(UnidadDeVenta unidad, double recaudacion) {
         this.unidad = unidad;
         this.recaudacion = recaudacion;
     }
 
-    public UnidadesDeVenta getUnidad() {
+    public UnidadDeVenta getUnidad() {
         return unidad;
     }
 
-    public void setUnidad(UnidadesDeVenta unidad) {
+    public void setUnidad(UnidadDeVenta unidad) {
         this.unidad = unidad;
     }
 

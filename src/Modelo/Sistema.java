@@ -7,20 +7,20 @@ import java.util.List;
 public class Sistema {
 	// Atributos
 	private List<Festival> lstFestivales;
-	private List<UnidadesDeVenta> lstUnidadesDeVenta;
+	private List<UnidadDeVenta> lstUnidadesDeVenta;
 	private List<Empleado> lstEmpleados;
 	private List<Plato> lstPlatos;
 	private List<Pedido> lstPedidos;
 
 	public Sistema() {
 		this.lstFestivales = new ArrayList<Festival>();
-		this.lstUnidadesDeVenta = new ArrayList<UnidadesDeVenta>();
+		this.lstUnidadesDeVenta = new ArrayList<UnidadDeVenta>();
 		this.lstEmpleados = new ArrayList<Empleado>();
 		this.lstPlatos = new ArrayList<Plato>();
 		this.lstPedidos = new ArrayList<Pedido>();
 	}
 
-	public List<UnidadesDeVenta> getLstUnidadesDeVenta() {
+	public List<UnidadDeVenta> getLstUnidadesDeVenta() {
 		return lstUnidadesDeVenta;
 	}
 
@@ -41,14 +41,14 @@ public class Sistema {
 	}
 
 	/* CU1 */
-	public UnidadesDeVenta traerUnidad(String codigo) {
+	public UnidadDeVenta traerUnidad(String codigo) {
 
 		int i = 0;
-		UnidadesDeVenta unidadDeVenta = null;
+		UnidadDeVenta unidadDeVenta = null;
 
 		while (i < lstUnidadesDeVenta.size() && unidadDeVenta == null) {
 
-			UnidadesDeVenta u = lstUnidadesDeVenta.get(i);
+			UnidadDeVenta u = lstUnidadesDeVenta.get(i);
 
 			if (u.getCodigo().equalsIgnoreCase(codigo)) {
 
@@ -79,7 +79,7 @@ public class Sistema {
 
 	public boolean eliminarUnidad(String codigo) throws Exception {
 
-		UnidadesDeVenta unidadEliminar = traerUnidad(codigo);
+		UnidadDeVenta unidadEliminar = traerUnidad(codigo);
 
 		if (unidadEliminar == null) {
 
@@ -106,13 +106,13 @@ public class Sistema {
 		return encontrado;
 	}
 
-	public UnidadesDeVenta traerUnidadDeVenta(String codigoUnidad) {
+	public UnidadDeVenta traerUnidadDeVenta(String codigoUnidad) {
 		int i = 0;
-		UnidadesDeVenta encontrada = null;
+		UnidadDeVenta encontrada = null;
 
 		while (i < lstUnidadesDeVenta.size() && encontrada == null) {
 
-			UnidadesDeVenta u = lstUnidadesDeVenta.get(i);
+			UnidadDeVenta u = lstUnidadesDeVenta.get(i);
 
 			if (u.getCodigo().equalsIgnoreCase(codigoUnidad)) {
 				encontrada = u;
@@ -274,7 +274,7 @@ public class Sistema {
 		return resultado;
 	}
 
-	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadesDeVenta codigoUnidad) {
+	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadDeVenta codigoUnidad) {
 
 		int id = 1;
 		if (!lstPedidos.isEmpty()) {
@@ -296,7 +296,7 @@ public class Sistema {
 			throw new Exception("La fecha del pedido no corresponde al festival");
 		}
 
-		UnidadesDeVenta unidad = traerUnidadDeVenta(codigoUnidad);
+		UnidadDeVenta unidad = traerUnidadDeVenta(codigoUnidad);
 		if (unidad == null) {
 			throw new Exception("La unidad de venta con código " + codigoUnidad + " no existe en el festival");
 		}
@@ -370,7 +370,7 @@ public class Sistema {
 		return ingresosTotales - costosTotales;
 	}
 
-	public List<UnidadesDeVenta> traerRankingUnidades(String nombreFestival) {
+	public List<UnidadDeVenta> traerRankingUnidades(String nombreFestival) {
 
 		Festival festival = traerFestival(nombreFestival);
 
@@ -388,7 +388,7 @@ public class Sistema {
 			}
 		}
 
-		List<UnidadesDeVenta> ranking = new ArrayList<UnidadesDeVenta>();
+		List<UnidadDeVenta> ranking = new ArrayList<UnidadDeVenta>();
 
 		for (ReporteVenta r : reporte) {
 			ranking.add(r.getUnidad());

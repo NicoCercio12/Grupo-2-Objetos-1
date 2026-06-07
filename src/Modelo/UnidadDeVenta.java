@@ -3,7 +3,7 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UnidadesDeVenta {
+public abstract class UnidadDeVenta {
 	// Atributos
 	private int idUnidad;
 	private String nombreComercial;
@@ -15,7 +15,7 @@ public abstract class UnidadesDeVenta {
 
 	// Constructor
 
-	public UnidadesDeVenta(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
+	public UnidadDeVenta(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
 			String codigo) {
 		super();
 		this.idUnidad = idUnidad;
