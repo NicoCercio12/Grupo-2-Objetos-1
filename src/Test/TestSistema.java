@@ -35,16 +35,16 @@ public class TestSistema {
 			sis.agregarCocinero("Maria", "Lopez", "22222222", LocalDate.of(1985, 3, 20), LocalDate.of(2019, 6, 1),
 					"Japonesa", 6000.0, 90000.0);
 			sis.agregarCajero("Carlos", "Gomez", "33333333", LocalDate.of(1995, 8, 15), LocalDate.of(1995, 8, 15),
-					LocalDate.of(2022, 3, 1), 70000.0, "Mañana");
+					LocalDate.of(2022, 3, 1), "Mañana", 70000.0);
 			for (Empleado e : sis.getLstEmpleados()) {
 				System.out.println(e);
 			}
 
 			System.out.println("\n 4) Agregar Unidades de Venta");
-			sis.agregarFoodTruck("El Truck", sis.traerEmpleado("11111111"), 20.0, "FT001", "AB123CD", true);
-			sis.agregarFoodTruck("La Rueda", sis.traerEmpleado("22222222"), 15.0, "FT002", "XY456ZW", false);
+			sis.agregarFoodTruck("El Truck", sis.traerEmpleado("11111111"), 20.0, "FT001", null, null, "AB123CD", true);
+			sis.agregarFoodTruck("La Rueda", sis.traerEmpleado("22222222"), 15.0, "FT002", null, null, "XY456ZW", false);
 			sis.agregarPuestoDesarmable("El Puesto", sis.traerEmpleado("33333333"), 30.0, "PD001", 3, 60);
-			for (UnidadDeVenta u : sis.getLstUnidadesDeVenta()) {
+			for (UnidadDeVenta u : sis.getLstUnidadDeVenta()) {
 				System.out.println(u);
 			}
 
@@ -106,7 +106,7 @@ public class TestSistema {
 
 		System.out.println("\n 14) Intentar agregar unidad duplicada");
 		try {
-			sis.agregarFoodTruck("Otro Truck", sis.traerEmpleado("11111111"), 10.0, "FT001", "ZZ999ZZ", false);
+			sis.agregarFoodTruck("Otro Truck", sis.traerEmpleado("11111111"), 10.0, "FT001", null, null, "ZZ999ZZ", false);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

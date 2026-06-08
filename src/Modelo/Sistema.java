@@ -7,22 +7,22 @@ import java.util.List;
 public class Sistema {
 	// Atributos
 	private List<Festival> lstFestivales;
-	private List<UnidadDeVenta> lstUnidadesDeVenta;
+	private List<UnidadDeVenta> lstUnidadDeVenta;
 	private List<Empleado> lstEmpleados;
 	private List<Plato> lstPlatos;
 	private List<Pedido> lstPedidos;
 
 	public Sistema() {
 		this.lstFestivales = new ArrayList<Festival>();
-		this.lstUnidadesDeVenta = new ArrayList<UnidadDeVenta>();
+		this.lstUnidadDeVenta = new ArrayList<UnidadDeVenta>();
 		this.lstEmpleados = new ArrayList<Empleado>();
 		this.lstPlatos = new ArrayList<Plato>();
 		this.lstPedidos = new ArrayList<Pedido>();
 	}
 
-	public List<UnidadDeVenta> getLstUnidadesDeVenta() {
-		return lstUnidadesDeVenta;
-	}
+	public List<UnidadDeVenta> getLstUnidadDeVenta() {
+		return	lstUnidadDeVenta;
+	}	
 
 	public List<Empleado> getLstEmpleados() {
 		return lstEmpleados;
@@ -46,9 +46,9 @@ public class Sistema {
 		int i = 0;
 		UnidadDeVenta unidadDeVenta = null;
 
-		while (i < lstUnidadesDeVenta.size() && unidadDeVenta == null) {
+		while (i < lstUnidadDeVenta.size() && unidadDeVenta == null) {
 
-			UnidadDeVenta u = lstUnidadesDeVenta.get(i);
+			UnidadDeVenta u = lstUnidadDeVenta.get(i);
 
 			if (u.getCodigo().equalsIgnoreCase(codigo)) {
 
@@ -86,7 +86,7 @@ public class Sistema {
 			throw new Exception("ERROR: La unidad de venta no existe");
 		}
 
-		return lstUnidadesDeVenta.remove(unidadEliminar);
+		return lstUnidadDeVenta.remove(unidadEliminar);
 
 	}
 
@@ -110,9 +110,9 @@ public class Sistema {
 		int i = 0;
 		UnidadDeVenta encontrada = null;
 
-		while (i < lstUnidadesDeVenta.size() && encontrada == null) {
+		while (i < lstUnidadDeVenta.size() && encontrada == null) {
 
-			UnidadDeVenta u = lstUnidadesDeVenta.get(i);
+			UnidadDeVenta u = lstUnidadDeVenta.get(i);
 
 			if (u.getCodigo().equalsIgnoreCase(codigoUnidad)) {
 				encontrada = u;
@@ -138,20 +138,21 @@ public class Sistema {
 		return lstFestivales.add(agregar);
 	}
 
-	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo,
-			String patente, boolean usaElectricidad) throws Exception {
+	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, List<Plato> plato, List<Empleado> empleado, String patente, boolean usaElectricidad)throws Exception{
 
-		if (traerUnidad(codigo) != null) {
+		if(traerUnidad(codigo) != null){
 			throw new Exception("ERROR: ya existe la unidad");
 		}
 
-		int id = 1;
-		if (!lstUnidadesDeVenta.isEmpty()) {
-			id = lstUnidadesDeVenta.get(lstUnidadesDeVenta.size() - 1).getIdUnidad() + 1;
+
+		int id=1;
+		if(!lstUnidadDeVenta.isEmpty()) {
+		id=lstUnidadDeVenta.get(lstUnidadDeVenta.size()-1).getIdUnidad()+1;
 		}
 
-		return lstUnidadesDeVenta.add(new FoodTruck(id, nombreComercial, responsable, superficie, codigo,
-				patente, usaElectricidad));
+
+		UnidadDeVenta agregar = new FoodTruck(id, nombreComercial, responsable, superficie, codigo, patente, usaElectricidad);
+		return lstUnidadDeVenta.add(agregar);
 	}
 
 	public boolean agregarPuestoDesarmable(String nombreComercial, Empleado responsable, double superficie,
@@ -160,10 +161,10 @@ public class Sistema {
 		if (traerUnidad(codigo) != null) {
 			throw new Exception("Error ya existe la unidad:" + codigo);
 		}
-		if (!lstUnidadesDeVenta.isEmpty()) {
-			id = lstUnidadesDeVenta.get(lstUnidadesDeVenta.size() - 1).getIdUnidad() + 1;
+		if (!lstUnidadDeVenta.isEmpty()) {
+			id = lstUnidadDeVenta.get(lstUnidadDeVenta.size() - 1).getIdUnidad() + 1;
 		}
-		return lstUnidadesDeVenta.add(new PuestoDesarmable(id, nombreComercial, responsable, superficie, codigo,
+		return lstUnidadDeVenta.add(new PuestoDesarmable(id, nombreComercial, responsable, superficie, codigo,
 				cantidadCarpas, tiempoMontaje));
 	}
 
@@ -188,7 +189,7 @@ public class Sistema {
 	}
 
 	public boolean agregarCajero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate antiguedad, LocalDate fechaIngreso, double sueldoBase, String turno) throws Exception {
+			LocalDate antiguedad, LocalDate fechaIngreso, String turno, double sueldoBase) throws Exception {
 
 		int id = 1;
 		if (traerEmpleado(dni) != null) {
@@ -198,7 +199,7 @@ public class Sistema {
 			id = lstEmpleados.get(lstEmpleados.size() - 1).getIdEmpleado() + 1;
 		}
 
-		return lstEmpleados.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, antiguedad, turno));
+		return lstEmpleados.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, antiguedad, turno, sueldoBase));
 	}
 
 	public boolean agregarCocinero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
@@ -215,6 +216,7 @@ public class Sistema {
 
 		Empleado agregar = new Cocinero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, especialidad,
 				plusCategoria, sueldoBase);
+		
 		return lstEmpleados.add(agregar);
 	}
 
@@ -284,7 +286,25 @@ public class Sistema {
 		Pedido agregar = new Pedido(id, fecha, festival, codigoUnidad);
 		return lstPedidos.add(agregar);
 	}
-
+	
+	public double liquidarHaberes(String dni){
+		Empleado empleado = traerEmpleado(dni);;
+	  
+	    double sueldoLiquidado=0;
+	    
+	    if (empleado instanceof Cocinero){
+	        Cocinero co= (Cocinero) empleado;
+	        sueldoLiquidado=co.getSueldoBase()+co.getPlusCategoria();
+	    }
+	    
+	    if (empleado instanceof Cajero){
+	    	Cajero ca= (Cajero) empleado;
+	        sueldoLiquidado=ca.getSueldoBase();
+	    }
+	   
+	    return sueldoLiquidado;
+	}
+	
 	/* CU19 */
 	public boolean agregarPedidoValidado(LocalDate fecha, String nombre, String codigoUnidad) throws Exception {
 		Festival festival = traerFestival(nombre);
@@ -349,6 +369,27 @@ public class Sistema {
 		return empleados;
 	}
 
+	
+	public double calcularRentabilidadNeta(String codigo){
+	    UnidadDeVenta unidad=traerUnidad(codigo);
+
+	    double rentabilidadNetaTotal=0;
+	    for(Pedido p : lstPedidos) {
+	        if(p.getUnidadDeVenta().equals(unidad)){
+	            for (DetalleVenta d:p.getLstDetalleVentas()){  
+	                double precioVenta=d.getPlato().getCostoVenta();
+	                double costoProduccion= d.getPlato().getCostoProduccion();
+	                int cantidad= d.getCantidad();
+	                double gananciaPorPlato=precioVenta-costoProduccion;
+	                rentabilidadNetaTotal+=(gananciaPorPlato*cantidad);
+	            }
+	        }
+	    }
+
+	    return rentabilidadNetaTotal;
+	}
+	
+	
 	public double calcularRentabilidadNeta(String codigo, LocalDate fechaDesde, LocalDate fechaHasta) {
 
 		double ingresosTotales = 0.0;
@@ -434,8 +475,39 @@ public class Sistema {
 
 		return platoEstrella;
 	}
+	
+	public List<Empleado> traerPersonalFestival(int idFestival){
+	    List<Empleado> personalFestival=new ArrayList<Empleado>();
+	    
+	    int i=0;
+	    while(i<lstPedidos.size()){
+	        Pedido p= lstPedidos.get(i);
+	        if(p.getFestival().getIdFestival()==idFestival){
+	            UnidadDeVenta unidad=p.getUnidadDeVenta();
+	            
+	            int j=0;
+	            List<Empleado>empleadosDeUnidad = unidad.getLstEmpleados();
+	            while(j<empleadosDeUnidad.size()){
+	                Empleado e= empleadosDeUnidad.get(j);
+	                if(!personalFestival.contains(e)){
+	                    personalFestival.add(e);
+	                }
+	                j++; 
+	            }
+	        }
+	        i++;
+	    }
+
+	    return personalFestival;
+	}
+	
 
 	/* CU29 se encuentra dentro de la clase UnidadesDeVenta */
 	/* CU33 se encuentra dentro de la clase UnidadesDeVenta */
 
+
+
 }
+
+
+
