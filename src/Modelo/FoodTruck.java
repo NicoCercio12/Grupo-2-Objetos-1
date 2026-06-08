@@ -34,4 +34,16 @@ public class FoodTruck extends UnidadDeVenta {
 		return "FoodTruck [patente=" + patente + ", usaElectricidad=" + usaElectricidad + "]";
 	}
 
+	@Override
+	public double calcularCanon(){
+		double canonBase = getSuperficie()*5000; 
+ 
+        if (isUsaElectricidad()){
+            canonBase+=15000;
+        }
+        
+        return canonBase;
+    }
+	
+
 }

@@ -47,6 +47,11 @@ public class Cocinero extends Empleado {
 				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 
+	@Override
+	public double liquidarHaberes() {
+		return this.sueldoBase+this.plusCategoria;
+	}
+
 	
 
 }

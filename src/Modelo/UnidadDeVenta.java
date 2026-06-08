@@ -118,6 +118,8 @@ public abstract class UnidadDeVenta {
         return resultado;
     }
 
+    public abstract double calcularCanon();
+    
 	@Override
 	public String toString() {
 		return "UnidadesDeVenta [idUnidad=" + idUnidad + ", nombreComercial=" + nombreComercial

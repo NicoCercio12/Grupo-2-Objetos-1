@@ -79,4 +79,7 @@ public abstract class Empleado {
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 
+	public abstract double liquidarHaberes();
+	
 }
+

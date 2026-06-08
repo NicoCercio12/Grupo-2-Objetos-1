@@ -34,6 +34,15 @@ public class PuestoDesarmable extends UnidadDeVenta {
 				+ "]";
 	}
 
+	@Override
+	public double calcularCanon() {
+		double canonPorCarpas = cantidadCarpas*10000;
+		double canonPorSuperficie =getSuperficie()*2500;
+			
+		return canonPorCarpas+canonPorSuperficie;
+	}
+	
+
 	
 
 }

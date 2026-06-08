@@ -36,4 +36,15 @@ public class Cajero extends Empleado {
 				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 
+	@Override
+	public double liquidarHaberes(){
+		double total = this.sueldoBase;
+
+		if (this.turno.equalsIgnoreCase("Noche")){
+			total+=10000; 
+		}
+		
+		return total;
+	}
+
 }

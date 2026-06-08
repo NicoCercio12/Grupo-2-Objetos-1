@@ -299,8 +299,11 @@ public class Sistema {
 	    
 	    if (empleado instanceof Cajero){
 	    	Cajero ca= (Cajero) empleado;
-	        sueldoLiquidado=ca.getSueldoBase();
-	    }
+	    	sueldoLiquidado = ca.getSueldoBase();
+	        	if (ca.getTurno()!=null&&ca.getTurno().equalsIgnoreCase("Noche")){
+	        		sueldoLiquidado += 10000; 
+	        	}
+	    	}
 	   
 	    return sueldoLiquidado;
 	}
