@@ -73,13 +73,19 @@ public abstract class Empleado {
 		this.fechaIngreso = fechaIngreso;
 	}
 
+	public boolean equals(Empleado empleado) {
+		return this.dni.equalsIgnoreCase(empleado.getDni());
+	}
+
+	public abstract double liquidarHaberes();
+	
+
 	@Override
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 
-	public abstract double liquidarHaberes();
 	
 }
 

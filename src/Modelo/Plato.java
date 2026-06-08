@@ -47,6 +47,10 @@ public class Plato {
 		this.costoVenta = costoVenta;
 	}
 
+	public boolean equals(Plato plato) {
+		return this.nombre.equalsIgnoreCase(plato.getNombre());	
+	}
+
 	@Override
 	public String toString() {
 		return "Plato [idPlato=" + idPlato + ", nombre=" + nombre + ", costoProduccion=" + costoProduccion

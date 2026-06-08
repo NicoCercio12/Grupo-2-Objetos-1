@@ -84,6 +84,10 @@ public abstract class UnidadDeVenta {
 		this.lstEmpleados = lstEmpleados;
 	}
 
+	public boolean equals(UnidadDeVenta unidad) {
+		return this.codigo.equalsIgnoreCase(unidad.getCodigo());
+	}
+
 	public boolean agregarPlato(Plato plato) {
 
 		int i = 0;

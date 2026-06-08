@@ -41,15 +41,16 @@ public class Cocinero extends Empleado {
 	}
 
 	@Override
+	public double liquidarHaberes() {
+		return sueldoBase + plusCategoria;
+	}
+
+
+	@Override
 	public String toString() {
 		return "Cocinero [idEmpleado=" + idEmpleado + ", especialidad=" + especialidad + ", nombre=" + nombre
 				+ ", plusCategoria=" + plusCategoria + ", apellido=" + apellido + ", sueldoBase=" + sueldoBase
 				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
-	}
-
-	@Override
-	public double liquidarHaberes() {
-		return this.sueldoBase+this.plusCategoria;
 	}
 
 	

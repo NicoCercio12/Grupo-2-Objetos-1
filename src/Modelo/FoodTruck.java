@@ -30,20 +30,19 @@ public class FoodTruck extends UnidadDeVenta {
 	}
 
 	@Override
-	public String toString() {
-		return "FoodTruck [patente=" + patente + ", usaElectricidad=" + usaElectricidad + "]";
+	public double calcularCanon() {
+		double canonBase = getSuperficie() * 5000;
+
+		if (isUsaElectricidad()) {
+			canonBase += 15000;
+		}
+
+		return canonBase;
 	}
 
 	@Override
-	public double calcularCanon(){
-		double canonBase = getSuperficie()*5000; 
- 
-        if (isUsaElectricidad()){
-            canonBase+=15000;
-        }
-        
-        return canonBase;
-    }
-	
+	public String toString() {
+		return "FoodTruck [patente=" + patente + ", usaElectricidad=" + usaElectricidad + "]";
+	}
 
 }

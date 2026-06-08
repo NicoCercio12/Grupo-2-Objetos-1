@@ -38,9 +38,9 @@ public class Cajero extends Empleado {
 
 	@Override
 	public double liquidarHaberes(){
-		double total = this.sueldoBase;
+		double total = sueldoBase;
 
-		if (this.turno.equalsIgnoreCase("Noche")){
+		if (turno.equalsIgnoreCase("Noche")){
 			total+=10000; 
 		}
 		

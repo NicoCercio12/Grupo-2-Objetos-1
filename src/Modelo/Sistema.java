@@ -21,8 +21,8 @@ public class Sistema {
 	}
 
 	public List<UnidadDeVenta> getLstUnidadDeVenta() {
-		return	lstUnidadDeVenta;
-	}	
+		return lstUnidadDeVenta;
+	}
 
 	public List<Empleado> getLstEmpleados() {
 		return lstEmpleados;
@@ -138,20 +138,20 @@ public class Sistema {
 		return lstFestivales.add(agregar);
 	}
 
-	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo, List<Plato> plato, List<Empleado> empleado, String patente, boolean usaElectricidad)throws Exception{
+	public boolean agregarFoodTruck(String nombreComercial, Empleado responsable, double superficie, String codigo,
+			String patente, boolean usaElectricidad) throws Exception {
 
-		if(traerUnidad(codigo) != null){
+		if (traerUnidad(codigo) != null) {
 			throw new Exception("ERROR: ya existe la unidad");
 		}
 
-
-		int id=1;
-		if(!lstUnidadDeVenta.isEmpty()) {
-		id=lstUnidadDeVenta.get(lstUnidadDeVenta.size()-1).getIdUnidad()+1;
+		int id = 1;
+		if (!lstUnidadDeVenta.isEmpty()) {
+			id = lstUnidadDeVenta.get(lstUnidadDeVenta.size() - 1).getIdUnidad() + 1;
 		}
 
-
-		UnidadDeVenta agregar = new FoodTruck(id, nombreComercial, responsable, superficie, codigo, patente, usaElectricidad);
+		UnidadDeVenta agregar = new FoodTruck(id, nombreComercial, responsable, superficie, codigo, patente,
+				usaElectricidad);
 		return lstUnidadDeVenta.add(agregar);
 	}
 
@@ -159,7 +159,7 @@ public class Sistema {
 			String codigo, int cantidadCarpas, int tiempoMontaje) throws Exception {
 		int id = 1;
 		if (traerUnidad(codigo) != null) {
-			throw new Exception("Error ya existe la unidad:" + codigo);
+			throw new Exception("ERROR: ya existe la unidad:" + codigo);
 		}
 		if (!lstUnidadDeVenta.isEmpty()) {
 			id = lstUnidadDeVenta.get(lstUnidadDeVenta.size() - 1).getIdUnidad() + 1;
@@ -189,17 +189,18 @@ public class Sistema {
 	}
 
 	public boolean agregarCajero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate antiguedad, LocalDate fechaIngreso, String turno, double sueldoBase) throws Exception {
+			LocalDate fechaIngreso, String turno, double sueldoBase) throws Exception {
 
 		int id = 1;
 		if (traerEmpleado(dni) != null) {
-			throw new Exception("Error ya existe el empleado: " + dni);
+			throw new Exception("ERROR: ya existe el empleado: " + dni);
 		}
 		if (!lstEmpleados.isEmpty()) {
 			id = lstEmpleados.get(lstEmpleados.size() - 1).getIdEmpleado() + 1;
 		}
 
-		return lstEmpleados.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, antiguedad, turno, sueldoBase));
+		return lstEmpleados
+				.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, turno, sueldoBase));
 	}
 
 	public boolean agregarCocinero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
@@ -216,7 +217,7 @@ public class Sistema {
 
 		Empleado agregar = new Cocinero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, especialidad,
 				plusCategoria, sueldoBase);
-		
+
 		return lstEmpleados.add(agregar);
 	}
 
@@ -286,33 +287,33 @@ public class Sistema {
 		Pedido agregar = new Pedido(id, fecha, festival, codigoUnidad);
 		return lstPedidos.add(agregar);
 	}
-	
-	public double liquidarHaberes(String dni){
-		Empleado empleado = traerEmpleado(dni);;
-	  
-	    double sueldoLiquidado=0;
-	    
-	    if (empleado instanceof Cocinero){
-	        Cocinero co= (Cocinero) empleado;
-	        sueldoLiquidado=co.getSueldoBase()+co.getPlusCategoria();
-	    }
-	    
-	    if (empleado instanceof Cajero){
-	    	Cajero ca= (Cajero) empleado;
-	    	sueldoLiquidado = ca.getSueldoBase();
-	        	if (ca.getTurno()!=null&&ca.getTurno().equalsIgnoreCase("Noche")){
-	        		sueldoLiquidado += 10000; 
-	        	}
-	    	}
-	   
-	    return sueldoLiquidado;
+
+	public double liquidarHaberes(String dni) {
+		Empleado empleado = traerEmpleado(dni);
+
+		double sueldoLiquidado = 0;
+
+		if (empleado instanceof Cocinero) {
+			Cocinero co = (Cocinero) empleado;
+			sueldoLiquidado = co.getSueldoBase() + co.getPlusCategoria();
+		}
+
+		if (empleado instanceof Cajero) {
+			Cajero ca = (Cajero) empleado;
+			sueldoLiquidado = ca.getSueldoBase();
+			if (ca.getTurno() != null && ca.getTurno().equalsIgnoreCase("Noche")) {
+				sueldoLiquidado += 10000;
+			}
+		}
+
+		return sueldoLiquidado;
 	}
-	
+
 	/* CU19 */
 	public boolean agregarPedidoValidado(LocalDate fecha, String nombre, String codigoUnidad) throws Exception {
 		Festival festival = traerFestival(nombre);
 		if (festival == null) {
-			throw new Exception("El festival con id " + nombre + " no existe");
+			throw new Exception("ERROR: El festival con id " + nombre + " no existe");
 		}
 
 		if (fecha.isBefore(festival.getFechaInicio()) || fecha.isAfter(festival.getFechaFin())) {
@@ -321,7 +322,7 @@ public class Sistema {
 
 		UnidadDeVenta unidad = traerUnidadDeVenta(codigoUnidad);
 		if (unidad == null) {
-			throw new Exception("La unidad de venta con código " + codigoUnidad + " no existe en el festival");
+			throw new Exception("ERROR: La unidad de venta con código " + codigoUnidad + " no existe en el festival");
 		}
 		int id = 1;
 
@@ -372,27 +373,25 @@ public class Sistema {
 		return empleados;
 	}
 
-	
-	public double calcularRentabilidadNeta(String codigo){
-	    UnidadDeVenta unidad=traerUnidad(codigo);
+	public double calcularRentabilidadNeta(String codigo) {
+		UnidadDeVenta unidad = traerUnidad(codigo);
 
-	    double rentabilidadNetaTotal=0;
-	    for(Pedido p : lstPedidos) {
-	        if(p.getUnidadDeVenta().equals(unidad)){
-	            for (DetalleVenta d:p.getLstDetalleVentas()){  
-	                double precioVenta=d.getPlato().getCostoVenta();
-	                double costoProduccion= d.getPlato().getCostoProduccion();
-	                int cantidad= d.getCantidad();
-	                double gananciaPorPlato=precioVenta-costoProduccion;
-	                rentabilidadNetaTotal+=(gananciaPorPlato*cantidad);
-	            }
-	        }
-	    }
+		double rentabilidadNetaTotal = 0;
+		for (Pedido p : lstPedidos) {
+			if (p.getUnidadDeVenta().equals(unidad)) {
+				for (DetalleVenta d : p.getLstDetalleVentas()) {
+					double precioVenta = d.getPlato().getCostoVenta();
+					double costoProduccion = d.getPlato().getCostoProduccion();
+					int cantidad = d.getCantidad();
+					double gananciaPorPlato = precioVenta - costoProduccion;
+					rentabilidadNetaTotal += (gananciaPorPlato * cantidad);
+				}
+			}
+		}
 
-	    return rentabilidadNetaTotal;
+		return rentabilidadNetaTotal;
 	}
-	
-	
+
 	public double calcularRentabilidadNeta(String codigo, LocalDate fechaDesde, LocalDate fechaHasta) {
 
 		double ingresosTotales = 0.0;
@@ -478,39 +477,33 @@ public class Sistema {
 
 		return platoEstrella;
 	}
-	
-	public List<Empleado> traerPersonalFestival(int idFestival){
-	    List<Empleado> personalFestival=new ArrayList<Empleado>();
-	    
-	    int i=0;
-	    while(i<lstPedidos.size()){
-	        Pedido p= lstPedidos.get(i);
-	        if(p.getFestival().getIdFestival()==idFestival){
-	            UnidadDeVenta unidad=p.getUnidadDeVenta();
-	            
-	            int j=0;
-	            List<Empleado>empleadosDeUnidad = unidad.getLstEmpleados();
-	            while(j<empleadosDeUnidad.size()){
-	                Empleado e= empleadosDeUnidad.get(j);
-	                if(!personalFestival.contains(e)){
-	                    personalFestival.add(e);
-	                }
-	                j++; 
-	            }
-	        }
-	        i++;
-	    }
 
-	    return personalFestival;
+	public List<Empleado> traerPersonalFestival(int idFestival) {
+		List<Empleado> personalFestival = new ArrayList<Empleado>();
+
+		int i = 0;
+		while (i < lstPedidos.size()) {
+			Pedido p = lstPedidos.get(i);
+			if (p.getFestival().getIdFestival() == idFestival) {
+				UnidadDeVenta unidad = p.getUnidadDeVenta();
+
+				int j = 0;
+				List<Empleado> empleadosDeUnidad = unidad.getLstEmpleados();
+				while (j < empleadosDeUnidad.size()) {
+					Empleado e = empleadosDeUnidad.get(j);
+					if (!personalFestival.contains(e)) {
+						personalFestival.add(e);
+					}
+					j++;
+				}
+			}
+			i++;
+		}
+
+		return personalFestival;
 	}
-	
 
 	/* CU29 se encuentra dentro de la clase UnidadesDeVenta */
 	/* CU33 se encuentra dentro de la clase UnidadesDeVenta */
 
-
-
 }
-
-
-
