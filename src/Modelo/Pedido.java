@@ -60,6 +60,7 @@ public class Pedido {
 		return lstDetalleVentas;
 	}
 
+
 	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
 		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
 	}

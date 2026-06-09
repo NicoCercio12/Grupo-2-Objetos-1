@@ -31,7 +31,7 @@ public class FoodTruck extends UnidadDeVenta {
 
 	@Override
 	public double calcularCanon() {
-		double canonBase = getSuperficie() * 5000;
+		double canonBase = getSuperficie() * 500;
 
 		if (isUsaElectricidad()) {
 			canonBase += 15000;

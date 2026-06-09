@@ -157,6 +157,7 @@ public class Sistema {
 
 	public boolean agregarPuestoDesarmable(String nombreComercial, Empleado responsable, double superficie,
 			String codigo, int cantidadCarpas, int tiempoMontaje) throws Exception {
+
 		int id = 1;
 		if (traerUnidad(codigo) != null) {
 			throw new Exception("ERROR: ya existe la unidad:" + codigo);
@@ -193,7 +194,7 @@ public class Sistema {
 
 		int id = 1;
 		if (traerEmpleado(dni) != null) {
-			throw new Exception("ERROR: ya existe el empleado: " + dni);
+			throw new Exception("ERROR: ya existe el empleado con dni: " + dni);
 		}
 		if (!lstEmpleados.isEmpty()) {
 			id = lstEmpleados.get(lstEmpleados.size() - 1).getIdEmpleado() + 1;
@@ -207,7 +208,7 @@ public class Sistema {
 			LocalDate fechaIngreso, String especialidad, double plusCategoria, double sueldoBase) throws Exception {
 
 		if (traerEmpleado(dni) != null) {
-			throw new Exception("ERROR: ya existe la unidad");
+			throw new Exception("ERROR: ya existe el empleado con dni : " + dni);
 		}
 
 		int id = 1;
@@ -373,29 +374,52 @@ public class Sistema {
 		return empleados;
 	}
 
+	public List<Empleado> traerPersonalPorFechaDeNacimiento(LocalDate fechaDesde, LocalDate fechaHasta) {
+
+		List<Empleado> empleados = new ArrayList<Empleado>();
+
+		for (Empleado e : lstEmpleados) {
+
+			if (!e.getFechaNacimiento().isBefore(fechaDesde) && !e.getFechaNacimiento().isAfter(fechaHasta)) {
+				empleados.add(e);
+			}
+		}
+
+		return empleados;
+	}
+
 	public double calcularRentabilidadNeta(String codigo) {
+
 		UnidadDeVenta unidad = traerUnidad(codigo);
 
-		double rentabilidadNetaTotal = 0;
+		double ingresos = 0.0;
+		double costos = 0.0;
+
 		for (Pedido p : lstPedidos) {
-			if (p.getUnidadDeVenta().equals(unidad)) {
+
+			if (p.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
+
 				for (DetalleVenta d : p.getLstDetalleVentas()) {
-					double precioVenta = d.getPlato().getCostoVenta();
-					double costoProduccion = d.getPlato().getCostoProduccion();
-					int cantidad = d.getCantidad();
-					double gananciaPorPlato = precioVenta - costoProduccion;
-					rentabilidadNetaTotal += (gananciaPorPlato * cantidad);
+					ingresos += d.getPlato().getCostoVenta() * d.getCantidad();
+					costos += d.getPlato().getCostoProduccion() * d.getCantidad();
 				}
 			}
 		}
 
-		return rentabilidadNetaTotal;
+		double sueldos = 0.0;
+		for (Empleado e : unidad.getLstEmpleados()) {
+			sueldos += e.liquidarHaberes();
+		}
+
+		return ingresos - costos - sueldos - unidad.calcularCanon();
 	}
 
 	public double calcularRentabilidadNeta(String codigo, LocalDate fechaDesde, LocalDate fechaHasta) {
 
-		double ingresosTotales = 0.0;
-		double costosTotales = 0.0;
+		UnidadDeVenta unidad = traerUnidad(codigo);
+
+		double ingresos = 0.0;
+		double costos = 0.0;
 
 		for (Pedido p : lstPedidos) {
 
@@ -403,14 +427,18 @@ public class Sistema {
 					!p.getFecha().isBefore(fechaDesde) && !p.getFecha().isAfter(fechaHasta)) {
 
 				for (DetalleVenta d : p.getLstDetalleVentas()) {
-
-					ingresosTotales += d.getPlato().getCostoVenta() * d.getCantidad();
-					costosTotales += d.getPlato().getCostoProduccion() * d.getCantidad();
+					ingresos += d.getPlato().getCostoVenta() * d.getCantidad();
+					costos += d.getPlato().getCostoProduccion() * d.getCantidad();
 				}
 			}
 		}
 
-		return ingresosTotales - costosTotales;
+		double sueldos = 0.0;
+		for (Empleado e : unidad.getLstEmpleados()) {
+			sueldos += e.liquidarHaberes();
+		}
+
+		return ingresos - costos - sueldos - unidad.calcularCanon();
 	}
 
 	public List<UnidadDeVenta> traerRankingUnidades(String nombreFestival) {
