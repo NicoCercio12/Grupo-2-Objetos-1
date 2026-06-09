@@ -27,9 +27,9 @@ public class TestSistema {
             }
 
             System.out.println("\n 3) Agregar Empleados");
-            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 80000.0);
-            sis.agregarCocinero("Maria", "Lopez", "22222222", LocalDate.of(1985, 3, 20), LocalDate.of(2019, 6, 1), "Japonesa", 6000.0, 90000.0);
-            sis.agregarCajero("Carlos", "Gomez", "33333333", LocalDate.of(1995, 8, 15), LocalDate.of(2022, 3, 1), "Noche", 70000.0);
+            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
+            sis.agregarCocinero("Maria", "Lopez", "22222222", LocalDate.of(1985, 3, 20), LocalDate.of(2019, 6, 1), "Japonesa", 6000.0, 100000.0);
+            sis.agregarCajero("Carlos", "Gomez", "33333333", LocalDate.of(1995, 8, 15), LocalDate.of(2022, 3, 1), "Noche", 100000.0);
             for (Empleado e : sis.getLstEmpleados()) {
                 System.out.println(e);
             }
@@ -53,7 +53,7 @@ public class TestSistema {
             sis.traerUnidad("FT001").agregarEmpleado(sis.traerEmpleado("11111111"));
             sis.traerUnidad("FT002").agregarEmpleado(sis.traerEmpleado("22222222"));
             sis.traerUnidad("PD001").agregarEmpleado(sis.traerEmpleado("33333333"));
-            System.out.println("Empleados agregados a unidades correctamente");
+            System.out.println("Empleados agregados correctamente");
 
             System.out.println("\n 7) Agregar Pedidos validados");
             sis.agregarPedidoValidado(LocalDate.of(2024, 1, 10), "Epicentro Verano", "FT001");
@@ -99,28 +99,38 @@ public class TestSistema {
                 System.out.println(e);
             }
 
-            System.out.println("\n 16) Liquidar haberes");
+            System.out.println("\n 16) Personal por fecha de nacimiento");
+            for (Empleado e : sis.traerPersonalPorFechaDeNacimiento(LocalDate.of(1980, 1, 1), LocalDate.of(1995, 12, 31))) {
+                System.out.println(e);
+            }
+
+            System.out.println("\n 17) Liquidar haberes");
             System.out.println("Juan: " + sis.liquidarHaberes("11111111"));
             System.out.println("Maria: " + sis.liquidarHaberes("22222222"));
-            System.out.println("Carlos (turno Noche): " + sis.liquidarHaberes("33333333"));
+            System.out.println("Carlos: " + sis.liquidarHaberes("33333333"));
 
-            System.out.println("\n 17) Calcular Canon");
-            System.out.println("FT001: " + sis.traerUnidad("FT001").calcularCanon());
-            System.out.println("FT002: " + sis.traerUnidad("FT002").calcularCanon());
-            System.out.println("PD001: " + sis.traerUnidad("PD001").calcularCanon());
+            System.out.println("\n 18) Calcular Canon");
+            System.out.println("FT001 (usaElectricidad=true, superficie=20): " + sis.traerUnidad("FT001").calcularCanon());
+            System.out.println("FT002 (usaElectricidad=false, superficie=15): " + sis.traerUnidad("FT002").calcularCanon());
+            System.out.println("PD001 (superficie=30, tiempoMontaje=60): " + sis.traerUnidad("PD001").calcularCanon());
 
-            System.out.println("\n 18) Personal Festival id=1");
+            System.out.println("\n 19) Personal Festival id=1");
             for (Empleado e : sis.traerPersonalFestival(1)) {
                 System.out.println(e);
             }
 
-            System.out.println("\n 19) Eliminar Festival Epicentro Invierno");
+            System.out.println("\n 20) Mayores Canon Festival id=1");
+            for (ReporteMayoresCanon r : sis.traerMayoresCanon(1)) {
+                System.out.println(r);
+            }
+
+            System.out.println("\n 21) Eliminar Festival Epicentro Invierno");
             sis.eliminarFestival("Epicentro Invierno");
             for (Festival f : sis.getLstFestivales()) {
                 System.out.println(f);
             }
 
-            System.out.println("\n 20) Eliminar Unidad FT002");
+            System.out.println("\n 22) Eliminar Unidad FT002");
             sis.eliminarUnidad("FT002");
             for (UnidadDeVenta u : sis.getLstUnidadDeVenta()) {
                 System.out.println(u);
@@ -130,28 +140,28 @@ public class TestSistema {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n 21) Intentar agregar festival duplicado");
+        System.out.println("\n 23) Intentar agregar festival duplicado");
         try {
             sis.agregarFestival("Epicentro Verano", "Verano", "Gastronomia", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n 22) Intentar agregar unidad duplicada");
+        System.out.println("\n 24) Intentar agregar unidad duplicada");
         try {
             sis.agregarFoodTruck("Otro Truck", sis.traerEmpleado("11111111"), 10.0, "FT001", "ZZ999ZZ", false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n 23) Intentar agregar empleado duplicado");
+        System.out.println("\n 25) Intentar agregar empleado duplicado");
         try {
-            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 80000.0);
+            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n 24) Intentar agregar pedido fuera de fecha del festival");
+        System.out.println("\n 26) Intentar agregar pedido fuera de fecha del festival");
         try {
             sis.agregarPedidoValidado(LocalDate.of(2024, 3, 1), "Epicentro Verano", "FT001");
         } catch (Exception e) {

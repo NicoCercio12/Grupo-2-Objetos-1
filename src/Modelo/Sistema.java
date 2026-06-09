@@ -531,6 +531,55 @@ public class Sistema {
 		return personalFestival;
 	}
 
+	public List<ReporteMayoresCanon> traerMayoresCanon(int idFestival) {
+
+		List<ReporteMayoresCanon> reporte = new ArrayList<ReporteMayoresCanon>();
+
+		// Armar lista de unidades que participaron en el festival
+		for (Pedido p : lstPedidos) {
+
+			if (p.getFestival().getIdFestival() == idFestival) {
+
+				UnidadDeVenta u = p.getUnidadDeVenta();
+				boolean yaEsta = false;
+
+				int i = 0;
+				while (i < reporte.size() && !yaEsta) {
+					if (reporte.get(i).getCodigo().equalsIgnoreCase(u.getCodigo())) {
+						yaEsta = true;
+					}
+					i++;
+				}
+
+				if (!yaEsta) {
+					String tipo = (u instanceof FoodTruck) ? "FoodTruck" : "PuestoDesarmable";
+					reporte.add(
+							new ReporteMayoresCanon(u.getNombreComercial(), u.getCodigo(), tipo, u.calcularCanon()));
+				}
+			}
+		}
+
+		// Ordenar de mayor a menor por canon (burbuja)
+		for (int i = 0; i < reporte.size() - 1; i++) {
+			for (int j = 0; j < reporte.size() - 1 - i; j++) {
+				if (reporte.get(j).getCanon() < reporte.get(j + 1).getCanon()) {
+					ReporteMayoresCanon aux = reporte.get(j);
+					reporte.set(j, reporte.get(j + 1));
+					reporte.set(j + 1, aux);
+				}
+			}
+		}
+
+		// Retornar solo las 3 primeras
+		List<ReporteMayoresCanon> top3 = new ArrayList<ReporteMayoresCanon>();
+		int limite = Math.min(3, reporte.size());
+		for (int i = 0; i < limite; i++) {
+			top3.add(reporte.get(i));
+		}
+
+		return top3;
+	}
+
 	/* CU29 se encuentra dentro de la clase UnidadesDeVenta */
 	/* CU33 se encuentra dentro de la clase UnidadesDeVenta */
 

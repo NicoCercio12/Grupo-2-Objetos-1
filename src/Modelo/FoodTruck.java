@@ -34,7 +34,7 @@ public class FoodTruck extends UnidadDeVenta {
 		double canonBase = getSuperficie() * 500;
 
 		if (isUsaElectricidad()) {
-			canonBase += 15000;
+			canonBase += 2000;
 		}
 
 		return canonBase;
