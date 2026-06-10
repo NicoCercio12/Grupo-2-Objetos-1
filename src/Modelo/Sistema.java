@@ -190,7 +190,7 @@ public class Sistema {
 	}
 
 	public boolean agregarCajero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, String turno, double sueldoBase) throws Exception {
+			LocalDate fechaIngreso, double sueldoBase, String turno) throws Exception {
 
 		int id = 1;
 		if (traerEmpleado(dni) != null) {
@@ -201,11 +201,11 @@ public class Sistema {
 		}
 
 		return lstEmpleados
-				.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, turno, sueldoBase));
+				.add(new Cajero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase, turno));
 	}
 
 	public boolean agregarCocinero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, String especialidad, double plusCategoria, double sueldoBase) throws Exception {
+			LocalDate fechaIngreso, double sueldoBase, String especialidad, double plusCategoria) throws Exception {
 
 		if (traerEmpleado(dni) != null) {
 			throw new Exception("ERROR: ya existe el empleado con dni : " + dni);
@@ -216,8 +216,9 @@ public class Sistema {
 			id = lstEmpleados.get(lstEmpleados.size() - 1).getIdEmpleado() + 1;
 		}
 
-		Empleado agregar = new Cocinero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, especialidad,
-				plusCategoria, sueldoBase);
+		Empleado agregar = new Cocinero(id, nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase,
+				especialidad,
+				plusCategoria);
 
 		return lstEmpleados.add(agregar);
 	}

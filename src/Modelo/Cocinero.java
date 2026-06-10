@@ -6,14 +6,17 @@ public class Cocinero extends Empleado {
 
 	private String especialidad;
 	private double plusCategoria;
-	private double sueldoBase;
 
 	public Cocinero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, String especialidad, double plusCategoria, double sueldoBase) {
-		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, fechaIngreso);
+			LocalDate fechaIngreso, double sueldoBase, String especialidad, double plusCategoria) {
+		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
 		this.especialidad = especialidad;
 		this.plusCategoria = plusCategoria;
-		this.sueldoBase = sueldoBase;
+	}
+
+	public Cocinero(String especialidad, double plusCategoria) {
+		this.especialidad = especialidad;
+		this.plusCategoria = plusCategoria;
 	}
 
 	public String getEspecialidad() {
@@ -32,27 +35,16 @@ public class Cocinero extends Empleado {
 		this.plusCategoria = plusCategoria;
 	}
 
-	public double getSueldoBase() {
-		return sueldoBase;
-	}
-
-	public void setSueldoBase(double sueldoBase) {
-		this.sueldoBase = sueldoBase;
-	}
-
 	@Override
 	public double liquidarHaberes() {
 		return sueldoBase + plusCategoria;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Cocinero [idEmpleado=" + idEmpleado + ", especialidad=" + especialidad + ", nombre=" + nombre
-				+ ", plusCategoria=" + plusCategoria + ", apellido=" + apellido + ", sueldoBase=" + sueldoBase
-				+ ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
+				+ ", plusCategoria=" + plusCategoria + ", apellido=" + apellido + ", dni=" + dni + ", fechaNacimiento="
+				+ fechaNacimiento + ", fechaIngreso=" + fechaIngreso + ", sueldoBase=" + sueldoBase + "]";
 	}
-
-	
 
 }

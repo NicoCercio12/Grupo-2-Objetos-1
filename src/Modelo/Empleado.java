@@ -3,23 +3,24 @@ package Modelo;
 import java.time.LocalDate;
 
 public abstract class Empleado {
-	
+
 	protected int idEmpleado;
 	protected String nombre;
 	protected String apellido;
 	protected String dni;
 	protected LocalDate fechaNacimiento;
 	protected LocalDate fechaIngreso;
+	protected double sueldoBase;
 
 	public Empleado(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso) {
-		super();
+			LocalDate fechaIngreso, double sueldoBase) {
 		this.idEmpleado = idEmpleado;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.fechaNacimiento = fechaNacimiento;
 		this.fechaIngreso = fechaIngreso;
+		this.sueldoBase = sueldoBase;
 	}
 
 	public Empleado() {
@@ -77,8 +78,15 @@ public abstract class Empleado {
 		return this.dni.equalsIgnoreCase(empleado.getDni());
 	}
 
+	public double getSueldoBase() {
+		return sueldoBase;
+	}
+
+	public void setSueldoBase(double sueldoBase) {
+		this.sueldoBase = sueldoBase;
+	}
+
 	public abstract double liquidarHaberes();
-	
 
 	@Override
 	public String toString() {
@@ -86,6 +94,4 @@ public abstract class Empleado {
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 
-	
 }
-

@@ -26,10 +26,10 @@ public class TestSistema {
                 System.out.println(p);
             }
 
-            System.out.println("\n 3) Agregar Empleados");
-            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
-            sis.agregarCocinero("Maria", "Lopez", "22222222", LocalDate.of(1985, 3, 20), LocalDate.of(2019, 6, 1), "Japonesa", 6000.0, 100000.0);
-            sis.agregarCajero("Carlos", "Gomez", "33333333", LocalDate.of(1995, 8, 15), LocalDate.of(2022, 3, 1), "Noche", 100000.0);
+            //System.out.println("\n 3) Agregar Empleados");
+            //sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
+            //sis.agregarCocinero("Maria", "Lopez", "22222222", LocalDate.of(1985, 3, 20), LocalDate.of(2019, 6, 1), "Japonesa", 6000.0, 100000.0);
+            //sis.agregarCajero("Carlos", "Gomez", "33333333", LocalDate.of(1995, 8, 15), LocalDate.of(2022, 3, 1), "Noche", 100000.0);
             for (Empleado e : sis.getLstEmpleados()) {
                 System.out.println(e);
             }
@@ -155,11 +155,11 @@ public class TestSistema {
         }
 
         System.out.println("\n 25) Intentar agregar empleado duplicado");
-        try {
-            sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+       // try {
+         //   sis.agregarCocinero("Juan", "Perez", "11111111", LocalDate.of(1990, 5, 10), LocalDate.of(2020, 1, 1), "Italiana", 5000.0, 100000.0);
+        //} catch (Exception e) {
+       //     System.out.println(e.getMessage());
+       // }
 
         System.out.println("\n 26) Intentar agregar pedido fuera de fecha del festival");
         try {
