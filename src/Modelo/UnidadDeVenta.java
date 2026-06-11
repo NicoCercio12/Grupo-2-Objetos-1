@@ -88,6 +88,8 @@ public abstract class UnidadDeVenta {
 		return this.codigo.equalsIgnoreCase(unidad.getCodigo());
 	}
 
+	// CASO DE USO 28, RESPONSABLE: Leonardo Haron
+
 	public boolean agregarPlato(Plato plato) {
 
 		int i = 0;
@@ -111,19 +113,22 @@ public abstract class UnidadDeVenta {
 
 		return agregado;
 	}
-	
-	/* CU29 */
-    public boolean agregarEmpleado(Empleado empleado) {
-        boolean resultado = false;
-        if (empleado != null && !lstEmpleados.contains(empleado)) {
-            lstEmpleados.add(empleado);
-            resultado = true;
-        }
-        return resultado;
-    }
 
-    public abstract double calcularCanon();
-    
+	// CASO DE USO 29, RESPONSABLE: Leonardo Haron
+
+	public boolean agregarEmpleado(Empleado empleado) {
+		boolean resultado = false;
+		if (empleado != null && !lstEmpleados.contains(empleado)) {
+			lstEmpleados.add(empleado);
+			resultado = true;
+		}
+		return resultado;
+	}
+
+	// CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+
+	public abstract double calcularCanon();
+
 	@Override
 	public String toString() {
 		return "UnidadesDeVenta [idUnidad=" + idUnidad + ", nombreComercial=" + nombreComercial
@@ -131,5 +136,4 @@ public abstract class UnidadDeVenta {
 				+ ", lstPlatos=" + lstPlatos + ", lstEmpleados=" + lstEmpleados + "]";
 	}
 
-	
 }

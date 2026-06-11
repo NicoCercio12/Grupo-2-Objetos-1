@@ -24,6 +24,8 @@ public class Cajero extends Empleado {
 		this.turno = turno;
 	}
 
+	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+
 	@Override
 	public double liquidarHaberes() {
 		double total = sueldoBase;

@@ -60,25 +60,7 @@ public class Pedido {
 		return lstDetalleVentas;
 	}
 
-
-	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
-		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
-	}
-
-	// Funciones
-	/* CU 33 */
-	public DetalleVenta traerDetalleVenta(int idPedido) {
-		DetalleVenta detalleEncontrado = null;
-		int i = 0;
-		while (i < lstDetalleVentas.size()) {
-			DetalleVenta detalle = lstDetalleVentas.get(i);
-			if (getIdPedido() == idPedido) {
-				detalleEncontrado = detalle;
-			}
-			i++;
-		}
-		return detalleEncontrado;
-	}
+	// CASO DE USO 31, RESPONSABLE: Gian Franco De Naro
 
 	public boolean agregarUnidad(UnidadDeVenta unidad) {
 
@@ -92,12 +74,31 @@ public class Pedido {
 		return agregado;
 	}
 
+	// CASO DE USO 32, RESPONSABLE: Nicolas Cerciosimo
+
+	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
+		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
+	}
+
+	// CASO DE USO 33, RESPONSABLE: Leonardo Haron
+
+	public DetalleVenta traerDetalleVenta(int idPedido) {
+		DetalleVenta detalleEncontrado = null;
+		int i = 0;
+		while (i < lstDetalleVentas.size()) {
+			DetalleVenta detalle = lstDetalleVentas.get(i);
+			if (getIdPedido() == idPedido) {
+				detalleEncontrado = detalle;
+			}
+			i++;
+		}
+		return detalleEncontrado;
+	}
+
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", festival=" + festival + ", unidadDeVenta="
 				+ unidadDeVenta + ", lstDetalleVentas=" + lstDetalleVentas + "]";
 	}
-
-	
 
 }

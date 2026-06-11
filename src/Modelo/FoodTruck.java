@@ -29,6 +29,8 @@ public class FoodTruck extends UnidadDeVenta {
 		this.usaElectricidad = usaElectricidad;
 	}
 
+	//CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+
 	@Override
 	public double calcularCanon() {
 		double canonBase = getSuperficie() * 500;

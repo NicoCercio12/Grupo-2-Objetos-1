@@ -28,6 +28,8 @@ public class PuestoDesarmable extends UnidadDeVenta {
 		this.tiempoMontajeMinutos = tiempoMontajeMinutos;
 	}
 
+	//CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+
 	@Override
 	public double calcularCanon() {
 		return (getSuperficie() * 500) - (tiempoMontajeMinutos * 10);

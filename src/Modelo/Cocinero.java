@@ -35,6 +35,8 @@ public class Cocinero extends Empleado {
 		this.plusCategoria = plusCategoria;
 	}
 
+	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+
 	@Override
 	public double liquidarHaberes() {
 		return sueldoBase + plusCategoria;

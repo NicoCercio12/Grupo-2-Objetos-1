@@ -86,6 +86,8 @@ public abstract class Empleado {
 		this.sueldoBase = sueldoBase;
 	}
 
+	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+
 	public abstract double liquidarHaberes();
 
 	@Override
