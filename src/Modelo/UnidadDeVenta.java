@@ -16,13 +16,13 @@ public abstract class UnidadDeVenta {
 	// Constructor
 
 	public UnidadDeVenta(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
-			String codigo) {
+			String codigo) throws Exception {
 		super();
 		this.idUnidad = idUnidad;
 		this.nombreComercial = nombreComercial;
 		this.empleadoResponsable = empleadoResponsable;
 		this.superficie = superficie;
-		this.codigo = codigo;
+		setCodigo(codigo);
 		this.lstPlatos = new ArrayList<Plato>();
 		this.lstEmpleados = new ArrayList<Empleado>();
 	}
@@ -64,7 +64,10 @@ public abstract class UnidadDeVenta {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(String codigo) throws Exception {
+		if (codigo == null || codigo.length() != 10) {
+			throw new Exception("ERROR: El código debe tener exactamente 10 caracteres");
+		}
 		this.codigo = codigo;
 	}
 

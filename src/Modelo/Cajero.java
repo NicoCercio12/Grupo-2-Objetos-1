@@ -7,7 +7,7 @@ public class Cajero extends Empleado {
 	private String turno;
 
 	public Cajero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, double sueldoBase, String turno) {
+			LocalDate fechaIngreso, double sueldoBase, String turno) throws Exception {
 		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
 		this.turno = turno;
 	}

@@ -82,17 +82,23 @@ public class Pedido {
 
 	// CASO DE USO 33, RESPONSABLE: Leonardo Haron
 
-	public DetalleVenta traerDetalleVenta(int idPedido) {
-		DetalleVenta detalleEncontrado = null;
+	public DetalleVenta traerDetalleVenta(String nombrePlato) {
+
 		int i = 0;
-		while (i < lstDetalleVentas.size()) {
-			DetalleVenta detalle = lstDetalleVentas.get(i);
-			if (getIdPedido() == idPedido) {
-				detalleEncontrado = detalle;
+		DetalleVenta encontrado = null;
+
+		while (i < lstDetalleVentas.size() && encontrado == null) {
+
+			DetalleVenta d = lstDetalleVentas.get(i);
+
+			if (d.getPlato().getNombre().equalsIgnoreCase(nombrePlato)) {
+				encontrado = d;
 			}
+
 			i++;
 		}
-		return detalleEncontrado;
+
+		return encontrado;
 	}
 
 	@Override

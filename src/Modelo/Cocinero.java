@@ -8,7 +8,7 @@ public class Cocinero extends Empleado {
 	private double plusCategoria;
 
 	public Cocinero(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, double sueldoBase, String especialidad, double plusCategoria) {
+			LocalDate fechaIngreso, double sueldoBase, String especialidad, double plusCategoria) throws Exception {
 		super(idEmpleado, nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
 		this.especialidad = especialidad;
 		this.plusCategoria = plusCategoria;

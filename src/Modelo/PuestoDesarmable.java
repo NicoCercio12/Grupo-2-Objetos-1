@@ -6,7 +6,7 @@ public class PuestoDesarmable extends UnidadDeVenta {
 	private int tiempoMontajeMinutos;
 
 	public PuestoDesarmable(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
-			String codigo, int cantidadCarpas, int tiempoMontajeMinutos) {
+			String codigo, int cantidadCarpas, int tiempoMontajeMinutos) throws Exception {
 		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo);
 		this.cantidadCarpas = cantidadCarpas;
 		this.tiempoMontajeMinutos = tiempoMontajeMinutos;

@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public abstract class Empleado {
 
@@ -13,12 +14,12 @@ public abstract class Empleado {
 	protected double sueldoBase;
 
 	public Empleado(int idEmpleado, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, double sueldoBase) {
+			LocalDate fechaIngreso, double sueldoBase) throws Exception {
 		this.idEmpleado = idEmpleado;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
-		this.fechaNacimiento = fechaNacimiento;
+		setFechaNacimiento(fechaNacimiento);
 		this.fechaIngreso = fechaIngreso;
 		this.sueldoBase = sueldoBase;
 	}
@@ -54,7 +55,11 @@ public abstract class Empleado {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) throws Exception {
+		int edad = Period.between(fechaNacimiento, LocalDate.now()).getYears();
+		if (edad < 18) {
+			throw new Exception("ERROR: El empleado debe ser mayor de edad");
+		}
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -86,7 +91,7 @@ public abstract class Empleado {
 		this.sueldoBase = sueldoBase;
 	}
 
-	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 34, RESPONSABLE: Maximo Magrassi
 
 	public abstract double liquidarHaberes();
 
