@@ -2,7 +2,6 @@ package Test;
 
 import Modelo.*;
 import java.time.LocalDate;
-import java.util.List;
 
 public class TestSistema {
 
@@ -41,30 +40,30 @@ public class TestSistema {
             }
 
             System.out.println("\n 4) Agregar Unidades de Venta");
-            sis.agregarFoodTruck("El Truck", sis.traerEmpleado("11111111"), 20.0, "FT001", "AB123CD", true);
-            sis.agregarFoodTruck("La Rueda", sis.traerEmpleado("22222222"), 15.0, "FT002", "XY456ZW", false);
-            sis.agregarPuestoDesarmable("El Puesto", sis.traerEmpleado("33333333"), 30.0, "PD001", 3, 60);
+            sis.agregarFoodTruck("El Truck", sis.traerEmpleado("11111111"), 20.0, "FT00000001", "AB123CD", true);
+            sis.agregarFoodTruck("La Rueda", sis.traerEmpleado("22222222"), 15.0, "FT00000002", "XY456ZW", false);
+            sis.agregarPuestoDesarmable("El Puesto", sis.traerEmpleado("33333333"), 30.0, "PD00000001", 3, 60);
             for (UnidadDeVenta u : sis.getLstUnidadDeVenta()) {
                 System.out.println(u);
             }
 
             System.out.println("\n 5) Agregar Platos a Unidades");
-            sis.traerUnidad("FT001").agregarPlato(sis.traerPlato("Empanadas"));
-            sis.traerUnidad("FT001").agregarPlato(sis.traerPlato("Hamburguesa"));
-            sis.traerUnidad("FT002").agregarPlato(sis.traerPlato("Pizza"));
-            sis.traerUnidad("PD001").agregarPlato(sis.traerPlato("Empanadas"));
+            sis.traerUnidad("FT00000001").agregarPlato(sis.traerPlato("Empanadas"));
+            sis.traerUnidad("FT00000001").agregarPlato(sis.traerPlato("Hamburguesa"));
+            sis.traerUnidad("FT00000002").agregarPlato(sis.traerPlato("Pizza"));
+            sis.traerUnidad("PD00000001").agregarPlato(sis.traerPlato("Empanadas"));
             System.out.println("Platos agregados correctamente");
 
             System.out.println("\n 6) Agregar Empleados a Unidades");
-            sis.traerUnidad("FT001").agregarEmpleado(sis.traerEmpleado("11111111"));
-            sis.traerUnidad("FT002").agregarEmpleado(sis.traerEmpleado("22222222"));
-            sis.traerUnidad("PD001").agregarEmpleado(sis.traerEmpleado("33333333"));
+            sis.traerUnidad("FT00000001").agregarEmpleado(sis.traerEmpleado("11111111"));
+            sis.traerUnidad("FT00000002").agregarEmpleado(sis.traerEmpleado("22222222"));
+            sis.traerUnidad("PD00000001").agregarEmpleado(sis.traerEmpleado("33333333"));
             System.out.println("Empleados agregados correctamente");
 
             System.out.println("\n 7) Agregar Pedidos validados");
-            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 10), "Epicentro Verano", "FT001");
-            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 15), "Epicentro Verano", "FT002");
-            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 20), "Epicentro Verano", "PD001");
+            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 10), "Epicentro Verano", "FT00000001");
+            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 15), "Epicentro Verano", "FT00000002");
+            sis.agregarPedidoValidado(LocalDate.of(2024, 1, 20), "Epicentro Verano", "PD00000001");
             for (Pedido p : sis.getLstPedidos()) {
                 System.out.println(p);
             }
@@ -87,7 +86,7 @@ public class TestSistema {
             System.out.println("\n 11) Agregar Unidad al pedido 1");
             Pedido pedidoPrueba = new Pedido(99, LocalDate.of(2024, 1, 25), sis.traerFestival("Epicentro Verano"),
                     null);
-            pedidoPrueba.agregarUnidad(sis.traerUnidad("FT001"));
+            pedidoPrueba.agregarUnidad(sis.traerUnidad("FT00000001"));
             System.out.println(pedidoPrueba);
 
             System.out.println("\n 12) Traer Pedidos por fecha");
@@ -106,14 +105,14 @@ public class TestSistema {
             }
 
             System.out.println("\n 15) Plato Estrella FT001 en Epicentro Verano");
-            System.out.println(sis.traerPlatoEstrella("FT001", "Epicentro Verano"));
+            System.out.println(sis.traerPlatoEstrella("FT00000001", "Epicentro Verano"));
 
             System.out.println("\n 16) Rentabilidad Neta FT001 sin fechas");
-            System.out.println(sis.calcularRentabilidadNeta("FT001"));
+            System.out.println(sis.calcularRentabilidadNeta("FT00000001"));
 
-            System.out.println("\n 17) Rentabilidad Neta FT001 con fechas");
+            System.out.println("\n 17) Rentabilidad Neta FT00000001 con fechas");
             System.out.println(
-                    sis.calcularRentabilidadNeta("FT001", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)));
+                    sis.calcularRentabilidadNeta("FT00000001", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)));
 
             System.out.println("\n 18) Personal por fecha de ingreso");
             for (Empleado e : sis.traerPersonalPorFecha(LocalDate.of(2019, 1, 1), LocalDate.of(2022, 12, 31))) {
@@ -132,9 +131,9 @@ public class TestSistema {
             System.out.println("Carlos: " + sis.liquidarHaberes("33333333"));
 
             System.out.println("\n 21) Calcular Canon");
-            System.out.println("FT001: " + sis.traerUnidad("FT001").calcularCanon());
-            System.out.println("FT002: " + sis.traerUnidad("FT002").calcularCanon());
-            System.out.println("PD001: " + sis.traerUnidad("PD001").calcularCanon());
+            System.out.println("FT001: " + sis.traerUnidad("FT00000001").calcularCanon());
+            System.out.println("FT002: " + sis.traerUnidad("FT00000002").calcularCanon());
+            System.out.println("PD001: " + sis.traerUnidad("PD00000001").calcularCanon());
 
             System.out.println("\n 22) Personal Festival Epicentro Verano");
             for (Empleado e : sis.traerPersonalFestival("Epicentro Verano")) {
@@ -153,7 +152,7 @@ public class TestSistema {
             }
 
             System.out.println("\n 25) Eliminar Unidad FT002");
-            sis.eliminarUnidad("FT002");
+            sis.eliminarUnidad("FT00000002");
             for (UnidadDeVenta u : sis.getLstUnidadDeVenta()) {
                 System.out.println(u);
             }
@@ -178,7 +177,7 @@ public class TestSistema {
 
         System.out.println("\n 28) Intentar agregar unidad duplicada");
         try {
-            sis.agregarFoodTruck("Otro Truck", sis.traerEmpleado("11111111"), 10.0, "FT001", "ZZ999ZZ", false);
+            sis.agregarFoodTruck("Otro Truck", sis.traerEmpleado("11111111"), 10.0, "FT00000001", "ZZ999ZZ", false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -193,7 +192,7 @@ public class TestSistema {
 
         System.out.println("\n 30) Intentar agregar pedido fuera de fecha del festival");
         try {
-            sis.agregarPedidoValidado(LocalDate.of(2024, 3, 1), "Epicentro Verano", "FT001");
+            sis.agregarPedidoValidado(LocalDate.of(2024, 3, 1), "Epicentro Verano", "FT00000001");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -207,5 +206,24 @@ public class TestSistema {
 
         System.out.println("\n 32) Intentar buscar detalle inexistente en pedido 1");
         System.out.println(sis.getLstPedidos().get(0).traerDetalleVenta("Milanesa"));
+
+        System.out.println("\n 33) Test validar codigo incorrecto");
+        try {
+            System.out.println(
+                    new FoodTruck(11, "Invalido", sis.traerEmpleado("11111111"), 20.0, "ABC123", "PAT124", true)
+                            .getCodigo());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("\n 34) Test validar fecha de nacimiento menor de edad");
+
+        try {
+            System.out.println(new Cocinero(100, "Menor", "Prueba", "55555555", LocalDate.now().minusYears(17),
+                    LocalDate.of(2024, 1, 1), 100000.0, "Italiana", 5000.0).getFechaNacimiento());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 }
