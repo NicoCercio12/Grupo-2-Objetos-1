@@ -124,7 +124,7 @@ public abstract class UnidadDeVenta {
 		return resultado;
 	}
 
-	//CASO DE USO 31, RESPONSABLE: Gian Franco Denaro
+	//CASO DE USO 31, RESPONSABLE: Maximo Magrassi
 
 	public double liquidarHaberesTotal() {
 		

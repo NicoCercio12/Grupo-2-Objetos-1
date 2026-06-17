@@ -196,18 +196,18 @@ public class TestSistema {
 
                         sis.agregarPedido(
                                         LocalDate.of(2026, 1, 10),
-                                        sis.traerFestival("Epicentro Verano"),
-                                        sis.traerUnidad("FT00000001"));
+                                        "Epicentro Verano",
+                                        "FT00000001");
 
                         sis.agregarPedido(
                                         LocalDate.of(2026, 1, 15),
-                                        sis.traerFestival("Epicentro Verano"),
-                                        sis.traerUnidad("FT00000002"));
+                                        "Epicentro Verano",
+                                        "FT00000002");
 
                         sis.agregarPedido(
                                         LocalDate.of(2026, 1, 20),
-                                        sis.traerFestival("Epicentro Verano"),
-                                        sis.traerUnidad("PD00000001"));
+                                        "Epicentro Verano",
+                                        "PD00000001");
 
                         for (Pedido p : sis.getLstPedidos()) {
                                 System.out.println(p);
@@ -240,7 +240,7 @@ public class TestSistema {
                                                         3);
 
                         // =====================================================
-                        // 10 AL 22
+                        // 10 AL 18
                         // =====================================================
 
                         System.out.println("\n10) Reporte Recaudacion");
@@ -407,28 +407,28 @@ public class TestSistema {
                         System.out.println(e.getMessage());
                 }
 
-                System.out.println("\n29) Agregar pedido con festival null");
+                System.out.println("\n29) Agregar pedido con festival inexistente");
 
                 try {
 
                         sis.agregarPedido(
                                         LocalDate.now(),
-                                        null,
-                                        sis.traerUnidad("FT00000001"));
+                                        "Festival Fantasma",
+                                        "FT00000001");
 
                 } catch (Exception e) {
 
                         System.out.println(e.getMessage());
                 }
 
-                System.out.println("\n30) Agregar pedido con unidad null");
+                System.out.println("\n30) Agregar pedido con unidad inexistente");
 
                 try {
 
                         sis.agregarPedido(
                                         LocalDate.now(),
-                                        sis.traerFestival("Epicentro Verano"),
-                                        null);
+                                        "Epicentro Verano",
+                                        "XX99999999");
 
                 } catch (Exception e) {
 
@@ -463,6 +463,11 @@ public class TestSistema {
                 }
 
                 for (UnidadDeVenta u : sis.getLstUnidadDeVenta()) {
+                        System.out.println(u);
+                }
+
+                System.out.println("\n33b) Unidades del festival despues de eliminar FT00000002");
+                for (UnidadDeVenta u : sis.traerFestival("Epicentro Verano").getLstUnidadDeVenta()) {
                         System.out.println(u);
                 }
 

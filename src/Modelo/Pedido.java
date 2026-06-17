@@ -61,13 +61,13 @@ public class Pedido {
 	}
 
 
-	// CASO DE USO 27, RESPONSABLE: Nicolas Cerciosimo
+	// CASO DE USO 32, RESPONSABLE: Nicolas Cerciosimo
 
 	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
 		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
 	}
 
-	// CASO DE USO 28, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 33, RESPONSABLE: Leonardo Haron
 
 	public DetalleVenta traerDetalleVenta(Plato plato) {
 

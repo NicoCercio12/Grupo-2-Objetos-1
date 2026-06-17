@@ -155,6 +155,14 @@ public class Sistema {
 			throw new Exception("ERROR: La unidad de venta no existe");
 		}
 
+		// Con esto hago que se elimine cualquier referencia en memoria del festival. Es
+		// decir, una vez eliminado del sistema, quedara eliminado de la lista que
+		// maneja unidades en festivales
+
+		for (Festival f : lstFestivales) {
+			f.getLstUnidadDeVenta().remove(unidadEliminar);
+		}
+
 		return lstUnidadDeVenta.remove(unidadEliminar);
 
 	}
@@ -250,11 +258,16 @@ public class Sistema {
 
 	// CASO DE USO 13, RESPONSABLE: Gian Franco Denaro
 
-	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadDeVenta unidad) throws Exception {
+	public boolean agregarPedido(LocalDate fecha, String nombre, String codigo) throws Exception {
 
-		if (festival == null || unidad == null) {
+		Festival festival = traerFestival(nombre);
+		if (festival == null) {
+			throw new Exception("ERROR: el festival no existe");
+		}
 
-			throw new Exception("ERROR: festival o unidad de venta inexistentes");
+		UnidadDeVenta unidad = traerUnidad(codigo);
+		if (unidad == null) {
+			throw new Exception("ERROR: la unidad de venta no existe");
 		}
 
 		int id = 1;
@@ -479,7 +492,7 @@ public class Sistema {
 		return personalFestival;
 	}
 
-	// CASO DE USO 23
+	// CASO DE USO 23, RESPONSABLE: Gian Franco Denaro
 
 	public List<ReporteMayoresCanon> traerMayoresCanon(Festival festival) {
 
