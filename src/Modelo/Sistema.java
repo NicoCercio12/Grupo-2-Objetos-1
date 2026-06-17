@@ -60,7 +60,8 @@ public class Sistema {
 
 	// CASO DE USO 2, RESPONSABLE: Maximo Magrassi
 
-	public boolean agregarFestival(String nombre, String temporada, String tematica, LocalDate fechaInicio,
+	public boolean agregarFestival(String nombre, String temporada, String tematica, String lugar,
+			LocalDate fechaInicio,
 			LocalDate fechaFin) throws Exception {
 
 		if (traerFestival(nombre) != null) {
@@ -72,14 +73,14 @@ public class Sistema {
 			id = lstFestivales.get(lstFestivales.size() - 1).getIdFestival() + 1;
 		}
 
-		Festival agregar = new Festival(id, nombre, temporada, tematica, fechaInicio, fechaFin);
+		Festival agregar = new Festival(id, nombre, temporada, tematica, lugar, fechaInicio, fechaFin);
 		return lstFestivales.add(agregar);
 	}
 
 	// CASO DE USO 3, RESPONSABLE: Gian Franco Del Pero
 
-	public boolean eliminarFestival(String NombreFestival) throws Exception {
-		Festival festivalEliminar = traerFestival(NombreFestival);
+	public boolean eliminarFestival(String nombre) throws Exception {
+		Festival festivalEliminar = traerFestival(nombre);
 		if (festivalEliminar == null) {
 			throw new Exception("ERROR: el festival no existe");
 		}
@@ -129,7 +130,7 @@ public class Sistema {
 
 	// CASO DE USO 6, RESPONSABLE: Gian Franco De Naro
 
-	public boolean agregarPuestoDesarmable(String nombreComercial, Empleado responsable, double superficie,
+	public boolean agregarPuestoDesarmable(String nombreComercial, Empleado empleado, double superficie,
 			String codigo, int cantidadCarpas, int tiempoMontaje) throws Exception {
 
 		int id = 1;
@@ -139,7 +140,7 @@ public class Sistema {
 		if (!lstUnidadDeVenta.isEmpty()) {
 			id = lstUnidadDeVenta.get(lstUnidadDeVenta.size() - 1).getIdUnidad() + 1;
 		}
-		return lstUnidadDeVenta.add(new PuestoDesarmable(id, nombreComercial, responsable, superficie, codigo,
+		return lstUnidadDeVenta.add(new PuestoDesarmable(id, nombreComercial, empleado, superficie, codigo,
 				cantidadCarpas, tiempoMontaje));
 	}
 
@@ -247,28 +248,34 @@ public class Sistema {
 		return agregado;
 	}
 
-	// CASO DE USO 13, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 13, RESPONSABLE: Gian Franco Denaro
 
-	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadDeVenta codigoUnidad) {
+	public boolean agregarPedido(LocalDate fecha, Festival festival, UnidadDeVenta unidad) throws Exception {
+
+		if (festival == null || unidad == null) {
+
+			throw new Exception("ERROR: festival o unidad de venta inexistentes");
+		}
 
 		int id = 1;
 		if (!lstPedidos.isEmpty()) {
 			id = lstPedidos.get(lstPedidos.size() - 1).getIdPedido() + 1;
 		}
 
-		Pedido agregar = new Pedido(id, fecha, festival, codigoUnidad);
-		return lstPedidos.add(agregar);
+		return lstPedidos.add(new Pedido(id, fecha, festival, unidad));
 	}
 
 	// CASO DE USO 14, RESPONSABLE: Gian Franco De Naro
 
-	public List<Pedido> traerPedidos() {
+	public List<Pedido> traerPedidosDeUnidadDeVenta(UnidadDeVenta unidad) {
 
 		List<Pedido> resultado = new ArrayList<>();
 
 		for (Pedido p : lstPedidos) {
 
-			resultado.add(p);
+			if (p.getUnidadDeVenta().equals(unidad))
+
+				resultado.add(p);
 
 		}
 
@@ -277,7 +284,7 @@ public class Sistema {
 
 	// CASO DE USO 15, RESPONSABLE: Nicolas Cerciosimo
 
-	public List<Pedido> traerPedidos(LocalDate fecha) {
+	public List<Pedido> traerPedidosPorFecha(LocalDate fecha) {
 
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 
@@ -293,81 +300,39 @@ public class Sistema {
 		return pedidos;
 	}
 
-	// CASO DE USO 17, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 16, RESPONSABLE: Nicolas Cerciosimo
 
-	public double liquidarHaberes(String dni) {
-		Empleado empleado = traerEmpleado(dni);
-
-		double sueldoLiquidado = 0;
-
-		if (empleado instanceof Cocinero) {
-			Cocinero co = (Cocinero) empleado;
-			sueldoLiquidado = co.getSueldoBase() + co.getPlusCategoria();
-		}
-
-		if (empleado instanceof Cajero) {
-			Cajero ca = (Cajero) empleado;
-			sueldoLiquidado = ca.getSueldoBase();
-			if (ca.getTurno() != null && ca.getTurno().equalsIgnoreCase("Noche")) {
-				sueldoLiquidado += 10000;
-			}
-		}
-
-		return sueldoLiquidado;
-	}
-
-	// CASO DE USO 18, RESPONSABLE: Gian Franco De Naro
-
-	public boolean agregarPedidoValidado(LocalDate fecha, String nombre, String codigoUnidad) throws Exception {
-		Festival festival = traerFestival(nombre);
-		if (festival == null) {
-			throw new Exception("ERROR: El festival con id " + nombre + " no existe");
-		}
-
-		if (fecha.isBefore(festival.getFechaInicio()) || fecha.isAfter(festival.getFechaFin())) {
-			throw new Exception("La fecha del pedido no corresponde al festival");
-		}
-
-		UnidadDeVenta unidad = traerUnidad(codigoUnidad);
-		if (unidad == null) {
-			throw new Exception("ERROR: La unidad de venta con código " + codigoUnidad + " no existe en el festival");
-		}
-		int id = 1;
-
-		if (!lstPedidos.isEmpty()) {
-			id = (lstPedidos.get(lstPedidos.size() - 1).getIdPedido() + 1);
-		}
-		return lstPedidos.add(new Pedido(id, fecha, festival, unidad));
-	}
-
-	// CASO DE USO 19, RESPONSABLE: Nicolas Cerciosimo
-
-	public List<ReporteVenta> traerReporteRecaudacion(String nombre) {
+	public List<ReporteVenta> traerReporteRecaudacion(Festival festival) {
 
 		List<ReporteVenta> reporteRecaudacion = new ArrayList<ReporteVenta>();
 
-		for (Pedido p : lstPedidos) {
+		for (UnidadDeVenta unidad : festival.getLstUnidadDeVenta()) {
 
-			if (p.getFestival().getNombre().equalsIgnoreCase(nombre)) {
+			double totalRecaudado = 0.0;
 
-				double totalRecaudado = 0.0;
+			for (Pedido pedido : lstPedidos) {
 
-				for (DetalleVenta d : p.getLstDetalleVentas()) {
+				if (pedido.getFestival().equals(festival)
+						&& pedido.getUnidadDeVenta().equals(unidad)) {
 
-					totalRecaudado += d.getPlato().getCostoVenta() * d.getCantidad();
+					for (DetalleVenta detalle : pedido.getLstDetalleVentas()) {
+
+						totalRecaudado += detalle.getPlato().getCostoVenta()
+								* detalle.getCantidad();
+					}
 				}
-
-				// No es una lista persistente, funciona como DTO. Por eso hago una agregar de
-				// esta manera
-
-				reporteRecaudacion.add(new ReporteVenta(p.getUnidadDeVenta(), totalRecaudado));
 			}
+
+			reporteRecaudacion.add(
+					new ReporteVenta(
+							unidad,
+							totalRecaudado));
 		}
 
 		return reporteRecaudacion;
 	}
 
-	// CASO DE USO 20, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 17, RESPONSABLE: Leonardo Haron
 
 	public List<Empleado> traerPersonalPorFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
 
@@ -384,19 +349,14 @@ public class Sistema {
 		return empleados;
 	}
 
-	// CASO DE USO 21, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 18, RESPONSABLE: Maximo Magrassi
 
-	public double calcularRentabilidadNeta(String codigo) {
-
-		UnidadDeVenta unidad = traerUnidad(codigo);
-
+	public double calcularRentabilidadNeta(UnidadDeVenta unidad) {
 		double ingresos = 0.0;
 		double costos = 0.0;
 
 		for (Pedido p : lstPedidos) {
-
-			if (p.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
-
+			if (p.getUnidadDeVenta().equals(unidad)) {
 				for (DetalleVenta d : p.getLstDetalleVentas()) {
 					ingresos += d.getPlato().getCostoVenta() * d.getCantidad();
 					costos += d.getPlato().getCostoProduccion() * d.getCantidad();
@@ -404,26 +364,19 @@ public class Sistema {
 			}
 		}
 
-		double sueldos = 0.0;
-		for (Empleado e : unidad.getLstEmpleados()) {
-			sueldos += e.liquidarHaberes();
-		}
-
-		return ingresos - costos - sueldos - unidad.calcularCanon();
+		return ingresos - costos - unidad.liquidarHaberesTotal() - unidad.calcularCanon();
 	}
 
-	// CASO DE USO 22, RESPONSABLE: Gian Franco De Naro
+	// CASO DE USO 19, RESPONSABLE: Gian Franco De Naro
 
-	public double calcularRentabilidadNeta(String codigo, LocalDate fechaDesde, LocalDate fechaHasta) {
-
-		UnidadDeVenta unidad = traerUnidad(codigo);
+	public double calcularRentabilidadNetaPorFechas(UnidadDeVenta unidad, LocalDate fechaDesde, LocalDate fechaHasta) {
 
 		double ingresos = 0.0;
 		double costos = 0.0;
 
 		for (Pedido p : lstPedidos) {
 
-			if (p.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo) &&
+			if (p.getUnidadDeVenta().equals(unidad) &&
 					!p.getFecha().isBefore(fechaDesde) && !p.getFecha().isAfter(fechaHasta)) {
 
 				for (DetalleVenta d : p.getLstDetalleVentas()) {
@@ -433,27 +386,21 @@ public class Sistema {
 			}
 		}
 
-		double sueldos = 0.0;
-		for (Empleado e : unidad.getLstEmpleados()) {
-			sueldos += e.liquidarHaberes();
-		}
-
-		return ingresos - costos - sueldos - unidad.calcularCanon();
+		return ingresos - costos - unidad.liquidarHaberesTotal() - unidad.calcularCanon();
 	}
 
-	// CASO DE USO 23, RESPONSABLE: Nicolas Cerciosimo
+	// CASO DE USO 20, RESPONSABLE: Nicolas Cerciosimo
 
-	public List<UnidadDeVenta> traerRankingUnidades(String nombreFestival) {
+	public List<UnidadDeVenta> traerRankingUnidades(Festival festival) {
 
-		Festival festival = traerFestival(nombreFestival);
-
-		List<ReporteVenta> reporte = traerReporteRecaudacion(festival.getNombre());
+		List<ReporteVenta> reporte = traerReporteRecaudacion(festival);
 
 		for (int i = 0; i < reporte.size() - 1; i++) {
 
 			for (int j = 0; j < reporte.size() - 1 - i; j++) {
 
 				if (reporte.get(j).getRecaudacion() < reporte.get(j + 1).getRecaudacion()) {
+
 					ReporteVenta aux = reporte.get(j);
 					reporte.set(j, reporte.get(j + 1));
 					reporte.set(j + 1, aux);
@@ -470,32 +417,37 @@ public class Sistema {
 		return ranking;
 	}
 
-	// CASO DE USO 24, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 21, RESPONSABLE: Leonardo Haron
 
-	public Plato traerPlatoEstrella(String codigo, String nombreFestival) {
+	public Plato traerPlatoEstrella(UnidadDeVenta unidad, Festival festival) {
+
 		Plato platoEstrella = null;
 		int maxCantidad = 0;
 
 		int i = 0;
-		while (i < lstPlatos.size()) {
-			Plato plato = lstPlatos.get(i);
+
+		while (i < unidad.getLstPlatos().size()) {
+
+			Plato plato = unidad.getLstPlatos().get(i);
 			int cantidadTotal = 0;
 
 			int j = 0;
-			while (j < lstPedidos.size()) {
-				Pedido pedido = lstPedidos.get(j);
-				if (pedido.getFestival().getNombre().equalsIgnoreCase(nombreFestival)
-						&& pedido.getUnidadDeVenta().getCodigo().equalsIgnoreCase(codigo)) {
 
-					int k = 0;
-					while (k < pedido.getLstDetalleVentas().size()) {
-						DetalleVenta detalle = pedido.getLstDetalleVentas().get(k);
-						if (detalle.getPlato().getIdPlato() == plato.getIdPlato()) {
+			while (j < lstPedidos.size()) {
+
+				Pedido pedido = lstPedidos.get(j);
+
+				if (pedido.getUnidadDeVenta().equals(unidad)
+						&& pedido.getFestival().equals(festival)) {
+
+					for (DetalleVenta detalle : pedido.getLstDetalleVentas()) {
+
+						if (detalle.getPlato().equals(plato)) {
 							cantidadTotal += detalle.getCantidad();
 						}
-						k++;
 					}
 				}
+
 				j++;
 			}
 
@@ -503,91 +455,72 @@ public class Sistema {
 				maxCantidad = cantidadTotal;
 				platoEstrella = plato;
 			}
+
 			i++;
 		}
 
 		return platoEstrella;
 	}
 
-	// CASO DE USO 25, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 22, RESPONSABLE: Maximo Magrassi
 
-	public List<Empleado> traerPersonalFestival(String nombreFestival) {
+	public List<Empleado> traerPersonalFestival(Festival festival) {
+
 		List<Empleado> personalFestival = new ArrayList<Empleado>();
 
-		int i = 0;
-		while (i < lstPedidos.size()) {
-			Pedido p = lstPedidos.get(i);
-			if (p.getFestival().getNombre().equalsIgnoreCase(nombreFestival)) {
-				UnidadDeVenta unidad = p.getUnidadDeVenta();
+		for (UnidadDeVenta unidad : festival.getLstUnidadDeVenta()) {
 
-				int j = 0;
-				List<Empleado> empleadosDeUnidad = unidad.getLstEmpleados();
-				while (j < empleadosDeUnidad.size()) {
-					Empleado e = empleadosDeUnidad.get(j);
-					if (!personalFestival.contains(e)) {
-						personalFestival.add(e);
-					}
-					j++;
-				}
+			for (Empleado empleado : unidad.getLstEmpleados()) {
+
+				personalFestival.add(empleado);
 			}
-			i++;
 		}
 
 		return personalFestival;
 	}
 
-	// CASO DE USO 26, RESPONSABLE: Gian Franco De Naro
+	// CASO DE USO 23
 
-	public List<ReporteMayoresCanon> traerMayoresCanon(String nombreFestival) {
+	public List<ReporteMayoresCanon> traerMayoresCanon(Festival festival) {
 
 		List<ReporteMayoresCanon> reporte = new ArrayList<ReporteMayoresCanon>();
 
-		// Armar lista de unidades que participaron en el festival
-		for (Pedido p : lstPedidos) {
+		for (UnidadDeVenta unidad : festival.getLstUnidadDeVenta()) {
 
-			if (p.getFestival().getNombre().equalsIgnoreCase(nombreFestival)) {
-
-				UnidadDeVenta u = p.getUnidadDeVenta();
-				boolean yaEsta = false;
-
-				int i = 0;
-				while (i < reporte.size() && !yaEsta) {
-					if (reporte.get(i).getCodigo().equalsIgnoreCase(u.getCodigo())) {
-						yaEsta = true;
-					}
-					i++;
-				}
-
-				if (!yaEsta) {
-					String tipo = (u instanceof FoodTruck) ? "FoodTruck" : "PuestoDesarmable";
-					reporte.add(
-							new ReporteMayoresCanon(u.getNombreComercial(), u.getCodigo(), tipo, u.calcularCanon()));
-				}
-			}
+			reporte.add(
+					new ReporteMayoresCanon(
+							unidad,
+							unidad.calcularCanon()));
 		}
 
-		// Ordenar de mayor a menor por canon (burbuja)
+		// Ordenar de mayor a menor por canon
 		for (int i = 0; i < reporte.size() - 1; i++) {
+
 			for (int j = 0; j < reporte.size() - 1 - i; j++) {
+
 				if (reporte.get(j).getCanon() < reporte.get(j + 1).getCanon()) {
+
 					ReporteMayoresCanon aux = reporte.get(j);
+
 					reporte.set(j, reporte.get(j + 1));
 					reporte.set(j + 1, aux);
 				}
 			}
 		}
 
-		// Retornar solo las 3 primeras
 		List<ReporteMayoresCanon> top3 = new ArrayList<ReporteMayoresCanon>();
+
 		int limite = Math.min(3, reporte.size());
+
 		for (int i = 0; i < limite; i++) {
+
 			top3.add(reporte.get(i));
 		}
 
 		return top3;
 	}
 
-	// CASO DE USO 27, RESPONSABLE: Nicolas Cerciosimo
+	// CASO DE USO 24, RESPONSABLE: Nicolas Cerciosimo
 
 	public List<Empleado> traerPersonalPorFechaDeNacimiento(LocalDate fechaDesde, LocalDate fechaHasta) {
 
@@ -603,7 +536,7 @@ public class Sistema {
 		return empleados;
 	}
 
-	// CASO DE USO 35, RESPONSABLE: Gian Franco De Naro
+	// CASO DE USO 25, RESPONSABLE: Gian Franco De Naro
 
 	public Plato traerPlato(String nombre) {
 

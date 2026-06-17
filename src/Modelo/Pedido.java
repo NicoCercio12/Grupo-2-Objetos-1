@@ -60,29 +60,16 @@ public class Pedido {
 		return lstDetalleVentas;
 	}
 
-	// CASO DE USO 31, RESPONSABLE: Gian Franco De Naro
 
-	public boolean agregarUnidad(UnidadDeVenta unidad) {
-
-		boolean agregado = false;
-
-		if (unidad != null) {
-			this.unidadDeVenta = unidad;
-			agregado = true;
-		}
-
-		return agregado;
-	}
-
-	// CASO DE USO 32, RESPONSABLE: Nicolas Cerciosimo
+	// CASO DE USO 27, RESPONSABLE: Nicolas Cerciosimo
 
 	public boolean agregarDetalleVenta(Plato plato, int cantidad) {
 		return lstDetalleVentas.add(new DetalleVenta(plato, cantidad));
 	}
 
-	// CASO DE USO 33, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 28, RESPONSABLE: Leonardo Haron
 
-	public DetalleVenta traerDetalleVenta(String nombrePlato) {
+	public DetalleVenta traerDetalleVenta(Plato plato) {
 
 		int i = 0;
 		DetalleVenta encontrado = null;
@@ -91,7 +78,7 @@ public class Pedido {
 
 			DetalleVenta d = lstDetalleVentas.get(i);
 
-			if (d.getPlato().getNombre().equalsIgnoreCase(nombrePlato)) {
+			if (d.getPlato().equals(plato)) {
 				encontrado = d;
 			}
 

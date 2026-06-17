@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Cajero extends Empleado {
 
@@ -24,17 +25,12 @@ public class Cajero extends Empleado {
 		this.turno = turno;
 	}
 
-	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 26, RESPONSABLE: Maximo Magrassi
 
 	@Override
 	public double liquidarHaberes() {
-		double total = sueldoBase;
-
-		if (turno.equalsIgnoreCase("Noche")) {
-			total += 10000;
-		}
-
-		return total;
+		int anios = Period.between(fechaIngreso, LocalDate.now()).getYears();
+		return Constantes.SUELDO_BASE + (anios * Constantes.PLUS_ANTIGUEDAD);
 	}
 
 	@Override

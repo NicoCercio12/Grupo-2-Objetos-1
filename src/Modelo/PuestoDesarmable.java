@@ -5,9 +5,9 @@ public class PuestoDesarmable extends UnidadDeVenta {
 	private int cantidadCarpas;
 	private int tiempoMontajeMinutos;
 
-	public PuestoDesarmable(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
+	public PuestoDesarmable(int idUnidad, String nombreComercial, Empleado empleado, double superficie,
 			String codigo, int cantidadCarpas, int tiempoMontajeMinutos) throws Exception {
-		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo);
+		super(idUnidad, nombreComercial, empleado, superficie, codigo);
 		this.cantidadCarpas = cantidadCarpas;
 		this.tiempoMontajeMinutos = tiempoMontajeMinutos;
 	}
@@ -28,11 +28,12 @@ public class PuestoDesarmable extends UnidadDeVenta {
 		this.tiempoMontajeMinutos = tiempoMontajeMinutos;
 	}
 
-	//CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 28, RESPONSABLE: Maximo Magrassi
 
 	@Override
 	public double calcularCanon() {
-		return (getSuperficie() * 500) - (tiempoMontajeMinutos * 10);
+		return (getSuperficie() * Constantes.COSTO_POR_SUPERFICIE)
+				- (tiempoMontajeMinutos * Constantes.COSTO_POR_MONTAJE);
 	}
 
 	@Override

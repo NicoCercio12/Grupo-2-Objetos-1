@@ -4,7 +4,7 @@ public class ReporteVenta {
 
     private UnidadDeVenta unidad;
     private double recaudacion;
-    
+
     public ReporteVenta(UnidadDeVenta unidad, double recaudacion) {
         this.unidad = unidad;
         this.recaudacion = recaudacion;
@@ -28,10 +28,7 @@ public class ReporteVenta {
 
     @Override
     public String toString() {
-        return "ReporteVenta [unidad=" + unidad + ", recaudacion=" + recaudacion + ", toString()=" + super.toString()
-                + "]";
+        return "ReporteVenta [unidad=" + unidad + ", recaudacion=" + recaudacion + "]";
     }
 
-    
-    
 }

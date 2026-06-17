@@ -35,11 +35,11 @@ public class Cocinero extends Empleado {
 		this.plusCategoria = plusCategoria;
 	}
 
-	//CASO DE USO 34, RESPONSABLE: Maximo Magrassi
+	//CASO DE USO 26, RESPONSABLE: Maximo Magrassi
 
 	@Override
 	public double liquidarHaberes() {
-		return sueldoBase + plusCategoria;
+		return Constantes.SUELDO_BASE + plusCategoria;
 	}
 
 	@Override

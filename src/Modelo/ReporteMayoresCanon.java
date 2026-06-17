@@ -2,37 +2,36 @@ package Modelo;
 
 public class ReporteMayoresCanon {
 
-    private String nombreComercial;
-    private String codigo;
-    private String tipoUnidad;
+    private UnidadDeVenta unidad;
     private double canon;
 
-    public ReporteMayoresCanon(String nombreComercial, String codigo, String tipoUnidad, double canon) {
-        this.nombreComercial = nombreComercial;
-        this.codigo = codigo;
-        this.tipoUnidad = tipoUnidad;
+    public ReporteMayoresCanon(UnidadDeVenta unidad, double canon) {
+        this.unidad = unidad;
         this.canon = canon;
     }
 
-    public String getNombreComercial() {
-        return nombreComercial;
+    public UnidadDeVenta getUnidad() {
+        return unidad;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public String getTipoUnidad() {
-        return tipoUnidad;
+    public void setUnidad(UnidadDeVenta unidad) {
+        this.unidad = unidad;
     }
 
     public double getCanon() {
         return canon;
     }
 
+    public void setCanon(double canon) {
+        this.canon = canon;
+    }
+
+    public boolean equals(ReporteMayoresCanon reporteMayoresCanon) {
+        return this.unidad.equals(reporteMayoresCanon.unidad);
+    }
+
     @Override
     public String toString() {
-        return "ReporteMayoresCanon [nombreComercial=" + nombreComercial + ", codigo=" + codigo +
-                ", tipoUnidad=" + tipoUnidad + ", canon=" + canon + "]";
+        return "ReporteMayoresCanon [unidad=" + unidad + ", canon=" + canon + "]";
     }
 }

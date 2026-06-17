@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UnidadDeVenta {
-	// Atributos
+
 	private int idUnidad;
 	private String nombreComercial;
-	private Empleado empleadoResponsable;
+	private Empleado empleado;
 	private double superficie;
 	private String codigo;
-	private List<Plato> lstPlatos = new ArrayList<Plato>();
-	private List<Empleado> lstEmpleados = new ArrayList<Empleado>();
+	private List<Plato> lstPlatos;
+	private List<Empleado> lstEmpleados;
 
-	// Constructor
-
-	public UnidadDeVenta(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
+	public UnidadDeVenta(int idUnidad, String nombreComercial, Empleado empleado, double superficie,
 			String codigo) throws Exception {
 		super();
 		this.idUnidad = idUnidad;
 		this.nombreComercial = nombreComercial;
-		this.empleadoResponsable = empleadoResponsable;
+		this.empleado = empleado;
 		this.superficie = superficie;
 		setCodigo(codigo);
 		this.lstPlatos = new ArrayList<Plato>();
@@ -44,12 +42,12 @@ public abstract class UnidadDeVenta {
 		this.nombreComercial = nombreComercial;
 	}
 
-	public Empleado getEmpleadoResponsable() {
-		return empleadoResponsable;
+	public Empleado getEmpleado() {
+		return empleado;
 	}
 
-	public void setEmpleadoResponsable(Empleado empleadoResponsable) {
-		this.empleadoResponsable = empleadoResponsable;
+	public void setEmpleadoResponsable(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 	public double getSuperficie() {
@@ -65,7 +63,7 @@ public abstract class UnidadDeVenta {
 	}
 
 	public void setCodigo(String codigo) throws Exception {
-		if (codigo == null || codigo.length() != 10) {
+		if (codigo == null || codigo.length() != Constantes.LONGITUD_CODIGO) {
 			throw new Exception("ERROR: El código debe tener exactamente 10 caracteres");
 		}
 		this.codigo = codigo;
@@ -75,23 +73,20 @@ public abstract class UnidadDeVenta {
 		return lstPlatos;
 	}
 
-	public void setLstPlatos(List<Plato> lstPlatos) {
-		this.lstPlatos = lstPlatos;
-	}
-
 	public List<Empleado> getLstEmpleados() {
 		return lstEmpleados;
-	}
-
-	public void setLstEmpleados(List<Empleado> lstEmpleados) {
-		this.lstEmpleados = lstEmpleados;
 	}
 
 	public boolean equals(UnidadDeVenta unidad) {
 		return this.codigo.equalsIgnoreCase(unidad.getCodigo());
 	}
 
-	// CASO DE USO 28, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 28, RESPONSABLE: Maximo Magrassi
+
+	public abstract double calcularCanon();
+
+
+	// CASO DE USO 29, RESPONSABLE: Leonardo Haron
 
 	public boolean agregarPlato(Plato plato) {
 
@@ -117,7 +112,7 @@ public abstract class UnidadDeVenta {
 		return agregado;
 	}
 
-	// CASO DE USO 29, RESPONSABLE: Leonardo Haron
+	// CASO DE USO 30, RESPONSABLE: Leonardo Haron
 
 	public boolean agregarEmpleado(Empleado empleado) {
 		boolean resultado = false;
@@ -125,17 +120,27 @@ public abstract class UnidadDeVenta {
 			lstEmpleados.add(empleado);
 			resultado = true;
 		}
+
 		return resultado;
 	}
 
-	// CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+	//CASO DE USO 31, RESPONSABLE: Gian Franco Denaro
 
-	public abstract double calcularCanon();
+	public double liquidarHaberesTotal() {
+		
+		double total = 0.0;
 
+		for (Empleado e : lstEmpleados) {
+			total += e.liquidarHaberes();
+		}
+		return total;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "UnidadesDeVenta [idUnidad=" + idUnidad + ", nombreComercial=" + nombreComercial
-				+ ", empleadoResponsable=" + empleadoResponsable + ", superficie=" + superficie + ", codigo=" + codigo
+				+ ", empleado=" + empleado + ", superficie=" + superficie + ", codigo=" + codigo
 				+ ", lstPlatos=" + lstPlatos + ", lstEmpleados=" + lstEmpleados + "]";
 	}
 

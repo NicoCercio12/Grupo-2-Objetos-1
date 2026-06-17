@@ -5,24 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Festival {
-	// Atributos
+
 	private int idFestival;
 	private String nombre;
 	private String temporada;
 	private String tematica;
+	private String lugar;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
-	private List<UnidadDeVenta> lstUnidadDeVenta = new ArrayList<UnidadDeVenta>();
+	private List<UnidadDeVenta> lstUnidadDeVenta;
 
-	public Festival(int idFestival, String nombre, String temporada, String tematica, LocalDate fechaInicio,
+	public Festival(int idFestival, String nombre, String temporada, String tematica, String lugar,
+			LocalDate fechaInicio,
 			LocalDate fechaFin) {
 		super();
 		this.idFestival = idFestival;
 		this.nombre = nombre;
 		this.temporada = temporada;
 		this.tematica = tematica;
+		this.lugar = lugar;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.lstUnidadDeVenta = new ArrayList<>();
 
 	}
 
@@ -63,6 +67,14 @@ public class Festival {
 		this.tematica = tematica;
 	}
 
+	public String getLugar() {
+		return lugar;
+	}
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -83,14 +95,44 @@ public class Festival {
 		return lstUnidadDeVenta;
 	}
 
-	public void setLstUnidadDeVenta(List<UnidadDeVenta> lstUnidadDeVenta) {
-		this.lstUnidadDeVenta = lstUnidadDeVenta;
+
+	public boolean equals(Festival festival) {
+		return this.fechaInicio.equals(festival.getFechaInicio()) && this.fechaFin.equals(festival.getFechaFin()); 
+	}
+
+	//CASO DE USO 27, RESPONSABLE: Gian Franco Denaro
+
+	public boolean agregarUnidadAlFestival(UnidadDeVenta unidad) {
+
+		int i = 0;
+		boolean existe = false;
+		boolean agregado = false;
+
+		while(i < lstUnidadDeVenta.size() && !existe) {
+
+			UnidadDeVenta u = lstUnidadDeVenta.get(i);
+
+			if(u.equals(unidad)){
+				existe = true;
+			}
+
+			i++;
+		}
+
+		if(!existe) {
+			agregado = lstUnidadDeVenta.add(unidad);
+		}
+
+		return agregado;
 	}
 
 	@Override
 	public String toString() {
-		return "Festival [idFestival=" + idFestival + ", nombre=" + nombre + ", temporada=" + temporada
-				+ ", tematica=" + tematica + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + "]";
+		return "Festival [idFestival=" + idFestival + ", nombre=" + nombre + ", temporada=" + temporada + ", tematica="
+				+ tematica + ", lugar=" + lugar + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin
+				+ ", lstUnidadDeVenta=" + lstUnidadDeVenta + "]";
 	}
+
+	
 
 }

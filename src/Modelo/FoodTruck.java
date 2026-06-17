@@ -5,9 +5,9 @@ public class FoodTruck extends UnidadDeVenta {
 	private String patente;
 	private boolean usaElectricidad;
 
-	public FoodTruck(int idUnidad, String nombreComercial, Empleado empleadoResponsable, double superficie,
+	public FoodTruck(int idUnidad, String nombreComercial, Empleado empleado, double superficie,
 			String codigo, String patente, boolean usaElectricidad) throws Exception {
-		super(idUnidad, nombreComercial, empleadoResponsable, superficie, codigo);
+		super(idUnidad, nombreComercial, empleado, superficie, codigo);
 		this.patente = patente;
 		this.usaElectricidad = usaElectricidad;
 	}
@@ -29,17 +29,15 @@ public class FoodTruck extends UnidadDeVenta {
 		this.usaElectricidad = usaElectricidad;
 	}
 
-	//CASO DE USO 30, RESPONSABLE: Maximo Magrassi
+	// CASO DE USO 28, RESPONSABLE: Maximo Magrassi
 
 	@Override
 	public double calcularCanon() {
-		double canonBase = getSuperficie() * 500;
-
-		if (isUsaElectricidad()) {
-			canonBase += 2000;
+		double canon = getSuperficie() * Constantes.COSTO_POR_SUPERFICIE;
+		if (usaElectricidad) {
+			canon += Constantes.PLUS_ELECTRICIDAD;
 		}
-
-		return canonBase;
+		return canon;
 	}
 
 	@Override
